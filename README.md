@@ -11,110 +11,110 @@
   </a>
 </p>
 
-## **See through walls with WiFi** ##
+## **用 WiFi 穿墙透视** ##
 
-**Turn ordinary WiFi into a spatial intelligence / sensing system.** Detect people, measure breathing and heart rate, track movement, and monitor rooms — through walls, in the dark, with no cameras or wearables. Just physics.
+**将普通 WiFi 转变为空间智能/感知系统。** 检测人员、测量呼吸和心率、追踪运动、监控房间——穿墙、黑暗中、无需摄像头或可穿戴设备。只需物理原理。
 
-Works natively with the four major smart-home ecosystems: **[Home Assistant](docs/integrations/home-assistant.md)** via the HA-DISCO MQTT publisher, **[Apple Home & HomePod](docs/user-guide-apple-homepod.md)** as a discoverable HAP-1.1 bridge, **[Google Home](docs/integrations/home-assistant.md)** + **[Amazon Alexa](docs/integrations/home-assistant.md)** via the same HA bridge or a [Matter](docs/adr/ADR-122-bfld-ruview-ha-matter-exposure.md) endpoint. Siri, Google Assistant, and Alexa can voice presence and vitals by room with zero custom skills.
+原生支持四大智能家居生态系统：通过 HA-DISCO MQTT 发布器集成 **[Home Assistant](docs/integrations/home-assistant.md)**，作为可发现的 HAP-1.1 桥接器集成 **[Apple Home 和 HomePod](docs/user-guide-apple-homepod.md)**，通过同一 HA 桥接器或 [Matter](docs/adr/ADR-122-bfld-ruview-ha-matter-exposure.md) 端点集成 **[Google Home](docs/integrations/home-assistant.md)** 和 **[Amazon Alexa](docs/integrations/home-assistant.md)**。Siri、Google Assistant 和 Alexa 可以按房间语音查询存在状态和生命体征，无需任何自定义技能。
 
 [![Works with Home Assistant](https://img.shields.io/badge/Works%20with-Home%20Assistant-blue?logo=home-assistant&logoColor=white&labelColor=41BDF5)](docs/integrations/home-assistant.md) [![Works with Matter](https://img.shields.io/badge/Works%20with-Matter-blue?labelColor=4285F4)](docs/adr/ADR-122-bfld-ruview-ha-matter-exposure.md) [![Works with Apple Home](https://img.shields.io/badge/Works%20with-Apple%20Home-black?logo=apple)](docs/user-guide-apple-homepod.md) [![Works with Google Home](https://img.shields.io/badge/Works%20with-Google%20Home-blue?logo=googlehome)](docs/integrations/home-assistant.md) [![Works with Alexa](https://img.shields.io/badge/Works%20with-Alexa-blue?logo=amazon&logoColor=white&labelColor=00CAFF)](docs/integrations/home-assistant.md)
 
-> Drop into any **Home Assistant** install with one `--mqtt` flag. Or pair into **Apple Home / Google Home / Alexa / SmartThings** as a Matter Bridge. Ships 21 entities per node (11 raw signals + 10 inferred semantic states: someone-sleeping, possible-distress, room-active, elderly-inactivity-anomaly, meeting-in-progress, bathroom-occupied, fall-risk-elevated, bed-exit, no-movement, multi-room-transition) plus 3 starter HA Blueprints. See [`docs/integrations/home-assistant.md`](docs/integrations/home-assistant.md) · [ADR-115](docs/adr/ADR-115-home-assistant-integration.md).
+> 通过一个 `--mqtt` 参数即可接入任何 **Home Assistant** 安装。或者作为 Matter 桥接器配对到 **Apple Home / Google Home / Alexa / SmartThings**。每个节点提供 21 个实体（11 个原始信号 + 10 个推断语义状态：有人睡觉、可能遇险、房间活跃、老年人活动异常、会议进行中、浴室占用、跌倒风险升高、离床、无移动、多房间切换）以及 3 个入门级 HA Blueprints。详见 [`docs/integrations/home-assistant.md`](docs/integrations/home-assistant.md) · [ADR-115](docs/adr/ADR-115-home-assistant-integration.md)。
 
-### π RuView is a WiFi sensing platform that turns radio signals into spatial intelligence.
+### π RuView 是一个 WiFi 感知平台，将无线电信号转化为空间智能。
 
-Every WiFi router already fills your space with radio waves. When people move, breathe, or even sit still, they disturb those waves in measurable ways. RuView captures these disturbances using Channel State Information (CSI) from low-cost ESP32 sensors and turns them into actionable data: who's there, what they're doing, and whether they're okay.
+每个 WiFi 路由器都已经用无线电波充满你的空间。当人们移动、呼吸甚至静坐时，他们都会以可测量的方式扰动这些电波。RuView 通过低成本的 ESP32 传感器捕获信道状态信息（CSI）来捕捉这些扰动，并将其转化为可操作的数据：谁在那里、他们在做什么、以及他们是否安好。
 
-**What it senses:**
-- **Presence and occupancy** — detect people through walls, count them, track entries and exits
-- **Vital signs** — breathing rate and heart rate, contactless, while sleeping or sitting
-- **Activity recognition** — walking, sitting, gestures, falls — from temporal CSI patterns
-- **Environment mapping** — RF fingerprinting identifies rooms, detects moved furniture, spots new objects
-- **Sleep quality** — overnight monitoring with sleep stage classification and apnea screening
+**它能感知的内容：**
+- **存在和占用** — 穿墙检测人员、计数、追踪进出
+- **生命体征** — 呼吸频率和心率，非接触式，睡眠或静坐时均可
+- **活动识别** — 行走、坐姿、手势、跌倒——来自时间 CSI 模式
+- **环境映射** — 射频指纹识别房间、检测家具移动、发现新物体
+- **睡眠质量** — 整夜监测，包含睡眠阶段分类和呼吸暂停筛查
 
-Built on [RuVector](https://github.com/ruvnet/ruvector/) and [Cognitum Seed](https://cognitum.one), RuView runs entirely on edge hardware — an ESP32 mesh (as low as $9 per node) paired with a Cognitum Seed for persistent memory, cryptographic attestation, and AI integration. No cloud, no cameras, no internet required.
+基于 [RuVector](https://github.com/ruvnet/ruvector/) 和 [Cognitum Seed](https://cognitum.one) 构建，RuView 完全在边缘硬件上运行——一个 ESP32 网状网络（每个节点低至 9 美元）配合 Cognitum Seed 实现持久内存、加密认证和 AI 集成。无需云、无需摄像头、无需互联网。
 
-The system learns each environment locally using spiking neural networks that adapt in under 30 seconds, with multi-frequency mesh scanning across 6 WiFi channels that uses your neighbors' routers as free radar illuminators. Every measurement is cryptographically attested via an Ed25519 witness chain.
+该系统使用脉冲神经网络在本地学习每个环境，30 秒内即可自适应，通过 6 个 WiFi 信道的多频网状扫描，利用邻居的路由器作为免费的雷达照射源。每次测量都通过 Ed25519 见证链进行加密认证。
 
-RuView turns ordinary WiFi into a contactless sensor. A $9 ESP32 board reads the radio reflections off the people in a room, and a small pretrained model — published on Hugging Face at [`ruvnet/wifi-densepose-pretrained`](https://huggingface.co/ruvnet/wifi-densepose-pretrained) — tells you who's there, how they're breathing, and how their heart rate is trending. The model fits in 8 KB (4-bit quantized) and runs in microseconds on a Raspberry Pi. (The [v2 encoder](https://huggingface.co/ruvnet/wifi-densepose-pretrained) reports an honest, label-free held-out **temporal-triplet accuracy of 82.3%** — up from 66.4% raw; the older "100% presence" figure was measured on a single-class recording and has been retracted in favor of this.) No cameras, no wearables, no app on the user's phone.
+RuView 将普通 WiFi 转变为非接触式传感器。一块 9 美元的 ESP32 开发板读取房间内人体反射的无线电波，一个小型预训练模型——发布在 Hugging Face 的 [`ruvnet/wifi-densepose-pretrained`](https://huggingface.co/ruvnet/wifi-densepose-pretrained) 上——告诉你谁在那里、他们的呼吸情况以及心率趋势。该模型仅需 8 KB（4 位量化），在树莓派上微秒级运行。（[v2 编码器](https://huggingface.co/ruvnet/wifi-densepose-pretrained) 报告了诚实的、无标签的保留集 **时间三元组准确率 82.3%**——从 66.4% 原始值提升；旧的"100% 存在检测"数据是在单类记录上测量的，已被撤回。）无需摄像头、无需可穿戴设备、无需用户手机上的应用。
 
-### Built for low-power edge applications
+### 专为低功耗边缘应用而构建
 
-[Edge modules](#edge-intelligence-adr-041) are small programs that run directly on the ESP32 sensor — no internet needed, no cloud fees, instant response.
+[边缘模块](#边缘智能-adr-041) 是直接在 ESP32 传感器上运行的小程序——无需互联网、无需云费用、即时响应。
 
 [![Rust 1.85+](https://img.shields.io/badge/rust-1.85+-orange.svg)](https://www.rust-lang.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Tests: 1463](https://img.shields.io/badge/tests-1463%20passed-brightgreen.svg)](https://github.com/ruvnet/RuView)
 [![Docker: multi-arch](https://img.shields.io/badge/docker-amd64%20%2B%20arm64-blue.svg)](https://hub.docker.com/r/ruvnet/wifi-densepose)
-[![Vital Signs](https://img.shields.io/badge/vital%20signs-breathing%20%2B%20heartbeat-red.svg)](#vital-sign-detection)
-[![ESP32 Ready](https://img.shields.io/badge/ESP32--S3-CSI%20streaming-purple.svg)](#esp32-s3-hardware-pipeline)
+[![Vital Signs](https://img.shields.io/badge/vital%20signs-breathing%20%2B%20heartbeat-red.svg)](#生命体征检测)
+[![ESP32 Ready](https://img.shields.io/badge/ESP32--S3-CSI%20streaming-purple.svg)](#esp32-s3-硬件流水线)
 [![crates.io](https://img.shields.io/crates/v/wifi-densepose-ruvector.svg)](https://crates.io/crates/wifi-densepose-ruvector)
-[![Downloads](https://img.shields.io/badge/downloads-10M%2B-brightgreen.svg)](#-edge-module-catalog)
+[![Downloads](https://img.shields.io/badge/downloads-10M%2B-brightgreen.svg)](#-边缘模块目录)
 
  
-> | What | How | Speed / scale |
-> |------|-----|---------------|
-> | 🫁 **Breathing rate** | Bandpass 0.1–0.5 Hz on wrapped phase, circular variance, zero-crossing BPM ([#593](https://github.com/ruvnet/RuView/issues/593)) | 6–30 BPM, real-time |
-> | 💓 **Heart rate** | Bandpass 0.8–2.0 Hz, zero-crossing BPM | 40–120 BPM, real-time |
-> | 👤 **Presence detection** | Trained head on Hugging Face ([`ruvnet/wifi-densepose-pretrained`](https://huggingface.co/ruvnet/wifi-densepose-pretrained); v2 encoder = 82.3% held-out temporal-triplet acc, honestly re-benchmarked) + a phase-variance fallback that needs no model | < 1 ms, ~30 s ambient calibration |
-> | 🧬 **CSI embeddings** | 128-dim contrastive encoder shipped on Hugging Face, 4-bit quantised variant fits in 8 KB | **164,183 emb/s** on M4 Pro |
-> | 🦴 **17-keypoint pose estimation** | `cog-pose-estimation` Cog v0.0.1 — signed aarch64 + x86_64 binaries on GCS, loads `pose_v1.safetensors` via Candle. Train your own from paired data in 2.1 s on an RTX 5080 ([ADR-101](docs/adr/ADR-101-pose-estimation-cog.md), [benchmarks](docs/benchmarks/pose-estimation-cog.md)). **SOTA on MM-Fi:** [`ruvnet/wifi-densepose-mmfi-pose`](https://huggingface.co/ruvnet/wifi-densepose-mmfi-pose) hits **82.69% torso-PCK@20** (ensemble 83.59%), beating MultiFormer (72.25%) and CSI2Pose (68.41%) on the matched MM-Fi `random_split` protocol — self-corrected and auditable on [AetherArena](https://huggingface.co/spaces/ruvnet/aether-arena) | 8.4 ms cold-start on a Pi 5 |
-> | 🚶 **Motion / activity** | Motion-band power + phase acceleration | Real-time |
-> | 🤸 **Fall detection** | Phase-acceleration threshold + 3-frame debounce + 5 s cooldown ([#263](https://github.com/ruvnet/RuView/issues/263)) | < 200 ms |
-> | 🧮 **Multi-person count** | Adaptive P95 normalisation + runtime-tunable dedup factor (`/api/v1/config/dedup-factor`, [#491](https://github.com/ruvnet/RuView/pull/491)). Six specialised learned counters available as Cogs: `occupancy-zones`, `elevator-count`, `queue-length`, `customer-flow`, `clean-room`, `person-matching` | Real-time, self-calibrating |
-> | 🌍 **World model prediction** | OccWorld TransVQVAE — 15-frame future occupancy prediction, 209 ms inference, 3.4 GB VRAM on RTX 5080; fine-tune on your space with `occworld_retrain.py` ([ADR-147](docs/adr/ADR-147-nvidia-cosmos-world-foundation-model-integration.md)) | 15 frames × 200×200×16 vox |
-> | 🧱 **Through-wall sensing** | Fresnel-zone geometry + multipath modeling | Up to ~5 m, signal-dependent |
-> | 🧠 **Edge intelligence** | **105-cog catalog** ([ADR-102](docs/adr/ADR-102-edge-module-registry.md)) live from `app-registry.json` — health, security, building, retail, industrial, research, AI, swarm, signal, network, and developer modules. Optional Cognitum Seed adds persistent vector store + kNN + witness chain | $140 total BOM |
-> | 🎯 **Camera-free pre-training** | Self-supervised contrastive encoder, 12.2M training steps on 60K frames, shipped on Hugging Face | 84 s/epoch retrain on M4 Pro |
-> | 📷 **Camera-supervised fine-tune** | MediaPipe + ESP32 CSI paired training, end-to-end Candle pipeline on RTX 5080 ([ADR-079](docs/adr/ADR-079-camera-supervised-pose-finetune.md)) | 2.1 s for 400 epochs (~5 ms/epoch) |
-> | 📡 **Multi-frequency mesh** | Channel hopping across 6 bands, TDM slot scheduling ([ADR-029](docs/adr/ADR-029-multifrequency-mesh.md)) | 3× sensing bandwidth |
-> | 🌐 **3D point cloud fusion** | Camera depth (MiDaS) + WiFi CSI + mmWave radar → unified spatial model | 22 ms pipeline · 19K+ points/frame |
+> | 功能 | 方法 | 速度/范围 |
+> |------|------|----------|
+> | 🫁 **呼吸频率** | 对包裹相位进行 0.1–0.5 Hz 带通滤波、循环方差、过零 BPM（[#593](https://github.com/ruvnet/RuView/issues/593)） | 6–30 BPM，实时 |
+> | 💓 **心率** | 0.8–2.0 Hz 带通滤波、过零 BPM | 40–120 BPM，实时 |
+> | 👤 **存在检测** | Hugging Face 上的训练模型（[`ruvnet/wifi-densepose-pretrained`](https://huggingface.co/ruvnet/wifi-densepose-pretrained)；v2 编码器 = 82.3% 保留集时间三元组准确率，已诚实重新基准测试）+ 无需模型的相位方差回退方案 | < 1 ms，约 30 秒环境校准 |
+> | 🧬 **CSI 嵌入** | 128 维对比编码器，发布在 Hugging Face 上，4 位量化版本仅 8 KB | M4 Pro 上 **164,183 嵌入/秒** |
+> | 🦴 **17 关键点姿态估计** | `cog-pose-estimation` Cog v0.0.1——GCS 上签名的 aarch64 + x86_64 二进制文件，通过 Candle 加载 `pose_v1.safetensors`。使用配对数据在 RTX 5080 上 2.1 秒训练自己的模型（[ADR-101](docs/adr/ADR-101-pose-estimation-cog.md)，[基准测试](docs/benchmarks/pose-estimation-cog.md)）。**MM-Fi 上的 SOTA：** [`ruvnet/wifi-densepose-mmfi-pose`](https://huggingface.co/ruvnet/wifi-densepose-mmfi-pose) 在匹配的 MM-Fi `random_split` 协议上达到 **82.69% torso-PCK@20**（集成 83.59%），超越 MultiFormer（72.25%）和 CSI2Pose（68.41%）——可在 [AetherArena](https://huggingface.co/spaces/ruvnet/aether-arena) 上自我纠正和审计 | Pi 5 上冷启动 8.4 ms |
+> | 🚶 **运动/活动** | 运动频带功率 + 相位加速度 | 实时 |
+> | 🤸 **跌倒检测** | 相位加速度阈值 + 3 帧去抖 + 5 秒冷却（[#263](https://github.com/ruvnet/RuView/issues/263)） | < 200 ms |
+> | 🧮 **多人计数** | 自适应 P95 归一化 + 运行时可调去重因子（`/api/v1/config/dedup-factor`，[#491](https://github.com/ruvnet/RuView/pull/491)）。六个专用学习计数器可作为 Cogs 使用：`occupancy-zones`、`elevator-count`、`queue-length`、`customer-flow`、`clean-room`、`person-matching` | 实时，自校准 |
+> | 🌍 **世界模型预测** | OccWorld TransVQVAE——15 帧未来占用预测，209 ms 推理，RTX 5080 上 3.4 GB VRAM；使用 `occworld_retrain.py` 在你的空间上微调（[ADR-147](docs/adr/ADR-147-nvidia-cosmos-world-foundation-model-integration.md)） | 15 帧 × 200×200×16 体素 |
+> | 🧱 **穿墙感知** | 菲涅尔区几何 + 多径建模 | 最远约 5 米，取决于信号 |
+> | 🧠 **边缘智能** | **105 个 cog 目录**（[ADR-102](docs/adr/ADR-102-edge-module-registry.md)）来自 `app-registry.json`——健康、安全、建筑、零售、工业、研究、AI、群集、信号、网络和开发者模块。可选的 Cognitum Seed 添加持久向量存储 + kNN + 见证链 | 总 BOM 成本 140 美元 |
+> | 🎯 **无摄像头预训练** | 自监督对比编码器，60K 帧上 12.2M 训练步，发布在 Hugging Face 上 | M4 Pro 上每轮重训练 84 秒 |
+> | 📷 **摄像头监督微调** | MediaPipe + ESP32 CSI 配对训练，RTX 5080 上的端到端 Candle 流水线（[ADR-079](docs/adr/ADR-079-camera-supervised-pose-finetune.md)） | 400 轮 2.1 秒（约 5 ms/轮） |
+> | 📡 **多频网状网络** | 6 个频段间信道跳频，TDM 时隙调度（[ADR-029](docs/adr/ADR-029-multifrequency-mesh.md)） | 3 倍感知带宽 |
+> | 🌐 **3D 点云融合** | 摄像头深度（MiDaS）+ WiFi CSI + 毫米波雷达 → 统一空间模型 | 22 ms 流水线 · 每帧 19K+ 点 |
 >
-> Browse the full 105-module catalog (with practical descriptions, sizes, and difficulty) below in [🧩 Edge Module Catalog](#-edge-module-catalog), or visit [seed.cognitum.one/store](https://seed.cognitum.one/store).
+> 浏览完整的 105 模块目录（含实用描述、大小和难度），请见下方 [🧩 边缘模块目录](#-边缘模块目录)，或访问 [seed.cognitum.one/store](https://seed.cognitum.one/store)。
 >
-> 🤗 **Pretrained weights**: download from [`ruvnet/wifi-densepose-pretrained`](https://huggingface.co/ruvnet/wifi-densepose-pretrained) — see [Loading the pretrained model](#loading-the-pretrained-model) below for one-command setup.
+> 🤗 **预训练权重**：从 [`ruvnet/wifi-densepose-pretrained`](https://huggingface.co/ruvnet/wifi-densepose-pretrained) 下载——详见下方 [加载预训练模型](#加载预训练模型) 的一键设置。
 
 ```bash
-# Option 1: Docker (simulated data, no hardware needed)
+# 选项 1：Docker（模拟数据，无需硬件）
 docker pull ruvnet/wifi-densepose:latest
 docker run -p 3000:3000 ruvnet/wifi-densepose:latest
-# Open http://localhost:3000
+# 打开 http://localhost:3000
 
-# Option 2a: Live sensing with ESP32-S3 hardware ($9)
-# Flash firmware, provision WiFi, and start sensing:
+# 选项 2a：使用 ESP32-S3 硬件进行实时感知（9 美元）
+# 刷写固件、配置 WiFi 并开始感知：
 python -m esptool --chip esp32s3 --port COM9 --baud 460800 \
   write_flash 0x0 bootloader.bin 0x8000 partition-table.bin \
   0xf000 ota_data_initial.bin 0x20000 esp32-csi-node.bin
 python firmware/esp32-csi-node/provision.py --port COM9 \
-  --ssid "YourWiFi" --password "secret" --target-ip 192.168.1.20
+  --ssid "你的WiFi" --password "密码" --target-ip 192.168.1.20
 
-# Option 2b: WiFi 6 + 802.15.4 research sensing with ESP32-C6 ($6-10, ADR-110)
-# Same csi-node firmware compiled for the C6 target — picks up the C6
-# overlay (sdkconfig.defaults.esp32c6) automatically.
+# 选项 2b：使用 ESP32-C6 进行 WiFi 6 + 802.15.4 研究感知（6-10 美元，ADR-110）
+# 相同的 csi-node 固件为 C6 目标编译——自动选择 C6
+# 覆盖配置（sdkconfig.defaults.esp32c6）。
 cd firmware/esp32-csi-node
 idf.py set-target esp32c6 && idf.py build
 idf.py -p COM6 flash
-# C6 boot extras (vs S3): HE-LTF subcarrier tagging in ADR-018 bytes 18-19,
-#   802.15.4 mesh time-sync on channel 15, TWT setup when the AP supports it,
-#   opt-in LP-core wake-on-motion for ~5 µA battery seed nodes.
-# v0.6.7 adds: real LP-core RISC-V motion-gate program (debounce + motion
-#   counter) and a Wi-Fi 6 soft-AP with TWT Responder so two C6 boards can
-#   benchmark real iTWT without buying an 11ax router. Both default off,
-#   flip CONFIG_C6_{LP_CORE,SOFTAP_HE}_ENABLE to turn them on.
+# C6 启动额外功能（相对于 S3）：ADR-018 字节 18-19 中的 HE-LTF 子载波标记，
+#   信道 15 上的 802.15.4 网状网络时间同步，AP 支持时的 TWT 设置，
+#   可选的 LP-core 运动唤醒功能，适用于约 5 µA 电池种子节点。
+# v0.6.7 新增：真正的 LP-core RISC-V 运动门控程序（去抖 + 运动
+#   计数器）和 Wi-Fi 6 软 AP（含 TWT Responder），使两块 C6 板可以
+#   在不购买 11ax 路由器的情况下基准测试真实 iTWT。两者默认关闭，
+#   打开 CONFIG_C6_{LP_CORE,SOFTAP_HE}_ENABLE 即可启用。
 
-# Option 3: Full system with Cognitum Seed ($140)
-# ESP32 streams CSI → bridge forwards to Seed for persistent storage + kNN + witness chain
-node scripts/rf-scan.js --port 5006           # Live RF room scan
-node scripts/snn-csi-processor.js --port 5006  # SNN real-time learning
-node scripts/mincut-person-counter.js --port 5006  # Correct person counting
+# 选项 3：完整系统搭配 Cognitum Seed（140 美元）
+# ESP32 流式传输 CSI → 桥接转发到 Seed 进行持久存储 + kNN + 见证链
+node scripts/rf-scan.js --port 5006           # 实时射频房间扫描
+node scripts/snn-csi-processor.js --port 5006  # SNN 实时学习
+node scripts/mincut-person-counter.js --port 5006  # 正确的人员计数
 
-# Option 4: Python — live on PyPI (ADR-117)
-pip install ruview                        # or: pip install wifi-densepose
-# Both ship the same compiled PyO3 wheel (~250 KB, abi3-py310, Linux/macOS/Windows).
-# Add [client] for the asyncio WebSocket + paho-mqtt clients:
-pip install "ruview[client]"              # or: pip install "wifi-densepose[client]"
+# 选项 4：Python——在 PyPI 上实时可用（ADR-117）
+pip install ruview                        # 或：pip install wifi-densepose
+# 两者都提供相同的编译 PyO3 wheel（约 250 KB，abi3-py310，Linux/macOS/Windows）。
+# 添加 [client] 以获取 asyncio WebSocket + paho-mqtt 客户端：
+pip install "ruview[client]"              # 或：pip install "wifi-densepose[client]"
 
-# from ruview import BreathingExtractor, HeartRateExtractor   # equivalent to:
+# from ruview import BreathingExtractor, HeartRateExtractor   # 等同于：
 # from wifi_densepose import BreathingExtractor, HeartRateExtractor
 # from ruview.client import SensingClient, RuViewMqttClient
 ```
@@ -122,19 +122,19 @@ pip install "ruview[client]"              # or: pip install "wifi-densepose[clie
 [![PyPI ruview](https://img.shields.io/pypi/v/ruview?label=ruview)](https://pypi.org/project/ruview/) [![PyPI wifi-densepose](https://img.shields.io/pypi/v/wifi-densepose?label=wifi-densepose)](https://pypi.org/project/wifi-densepose/)
 
 > [!NOTE]
-> **CSI-capable hardware recommended.** Presence, vital signs, through-wall sensing, and all advanced capabilities require Channel State Information (CSI) from an ESP32-S3 ($9) or research NIC. The Docker image runs with simulated data for evaluation. Consumer WiFi laptops provide RSSI-only presence detection.
+> **建议使用支持 CSI 的硬件。** 存在检测、生命体征、穿墙感知和所有高级功能都需要来自 ESP32-S3（9 美元）或研究用网卡的信道状态信息（CSI）。Docker 镜像使用模拟数据运行以供评估。消费级 WiFi 笔记本电脑仅提供基于 RSSI 的存在检测。
 
-> **Hardware options** for live CSI capture:
+> **实时 CSI 捕获的硬件选项：**
 >
-> | Option | Hardware | Cost | Full CSI | Capabilities |
-> |--------|----------|------|----------|-------------|
-> | **ESP32 + Cognitum Seed** (recommended) | ESP32-S3 + [Cognitum Seed](https://cognitum.one) | ~$140 | Yes | Presence, motion, breathing, heart rate, fall detection, multi-person counting, 17-keypoint pose (signed Cog binary), 105-cog catalog, persistent vector store, kNN search, witness chain, MCP proxy |
-> | **ESP32 Mesh** | 3-6× ESP32-S3 + WiFi router | ~$54 | Yes | Same capabilities as above without the persistent-memory features |
-> | **ESP32-C6 research node** ([ADR-110](docs/adr/ADR-110-esp32-c6-firmware-extension.md), [witness](docs/WITNESS-LOG-110.md), [reviewer guide](docs/ADR-110-REVIEW-GUIDE.md), [firmware v0.7.0](https://github.com/ruvnet/RuView/releases/tag/v0.7.0-esp32)) | ESP32-C6-DevKit ($6–10) | ~$10 | Yes (Wi-Fi 6 capable) | Same CSI pipeline as S3 with the dual-target firmware. **Firmware-side ADR-110 substrate now closed** (v0.7.0): ESP-NOW cross-board mesh quantified at **99.56 % match / 104 µs smoothed offset stdev / 3.95× EMA suppression** over a 5-min two-board soak (witness §A0.10), 32-byte UDP sync packet with operator-tunable cadence (§A0.12), ADR-018 byte 19 bit 4 wire-fix sourced from the working ESP-NOW path (§A0.13). Wire format ready for HE-LTF PPDU tagging in ADR-018 bytes 18-19 (firmware encoder + Rust + Python decoders verified end-to-end across 23 unit tests). LP-core motion-gate RISC-V program and Wi-Fi 6 soft-AP with TWT Responder both ship as opt-in code paths (default off). **Hardware-gated for measurement**: HE-LTF live subcarrier capture needs an 11ax AP (IDF v5.4 doesn't expose AP-side HE config — §A0.6); ~5 µA LP-core hibernation needs an INA meter to capture; 802.15.4 raw RX is broken in IDF v5.4 (workaround: ESP-NOW transport, shipped + measured). See witness log for the empirical / claimed split. |
-> | **Research NIC** | Intel 5300 / Atheros AR9580 | ~$50-100 | Yes | Full CSI with 3x3 MIMO |
-> | **Any WiFi** | Windows, macOS, or Linux laptop | $0 | No | RSSI-only: coarse presence and motion (see [tutorial #36](https://github.com/ruvnet/RuView/issues/36)) |
+> | 选项 | 硬件 | 成本 | 完整 CSI | 功能 |
+> |------|------|------|----------|------|
+> | **ESP32 + Cognitum Seed**（推荐） | ESP32-S3 + [Cognitum Seed](https://cognitum.one) | 约 140 美元 | 是 | 存在检测、运动、呼吸、心率、跌倒检测、多人计数、17 关键点姿态（签名的 Cog 二进制文件）、105 个 cog 目录、持久向量存储、kNN 搜索、见证链、MCP 代理 |
+> | **ESP32 网状网络** | 3-6 个 ESP32-S3 + WiFi 路由器 | 约 54 美元 | 是 | 与上述相同，但不含持久内存功能 |
+> | **ESP32-C6 研究节点**（[ADR-110](docs/adr/ADR-110-esp32-c6-firmware-extension.md)、[见证日志](docs/WITNESS-LOG-110.md)、[评审指南](docs/ADR-110-REVIEW-GUIDE.md)、[固件 v0.7.0](https://github.com/ruvnet/RuView/releases/tag/v0.7.0-esp32)） | ESP32-C6-DevKit（6-10 美元） | 约 10 美元 | 是（支持 Wi-Fi 6） | 与 S3 相同的 CSI 流水线，使用双目标固件。**固件端 ADR-110 基础现已关闭**（v0.7.0）：ESP-NOW 跨板网状网络量化结果为 **99.56% 匹配率 / 104 µs 平滑偏移标准差 / 3.95 倍 EMA 抑制**，经过 5 分钟双板浸泡测试（见证日志 §A0.10），32 字节 UDP 同步包，操作员可调节奏（§A0.12），ADR-018 字节 19 位 4 的线修复源自工作的 ESP-NOW 路径（§A0.13）。线格式已准备好用于 ADR-018 字节 18-19 中的 HE-LTF PPDU 标记（固件编码器 + Rust + Python 解码器经过 23 个单元测试的端到端验证）。LP-core 运动门控 RISC-V 程序和带 TWT Responder 的 Wi-Fi 6 软 AP 均作为可选代码路径提供（默认关闭）。**硬件限制的测量**：HE-LTF 实时子载波捕获需要 11ax AP（IDF v5.4 不暴露 AP 端 HE 配置——§A0.6）；约 5 µA LP-core 休眠需要 INA 仪表来捕获；802.15.4 原始 RX 在 IDF v5.4 中存在问题（解决方法：ESP-NOW 传输，已提供并测量）。请参阅见证日志了解经验/声明数据的分割。 |
+> | **研究用网卡** | Intel 5300 / Atheros AR9580 | 约 50-100 美元 | 是 | 完整的 3x3 MIMO CSI |
+> | **任意 WiFi** | Windows、macOS 或 Linux 笔记本电脑 | 0 美元 | 否 | 仅 RSSI：粗略的存在检测和运动（参见[教程 #36](https://github.com/ruvnet/RuView/issues/36)） |
 >
-> No hardware? Verify the signal processing pipeline with the deterministic reference signal: `python archive/v1/data/proof/verify.py`
+> 没有硬件？使用确定性参考信号验证信号处理流水线：`python archive/v1/data/proof/verify.py`
 >
 ---
 
@@ -143,350 +143,350 @@ pip install "ruview[client]"              # or: pip install "wifi-densepose[clie
     <img src="assets/v2-screen.png" alt="WiFi DensePose — Live pose detection with setup guide" width="800">
   </a>
   <br>
-  <em>Real-time pose skeleton from WiFi CSI signals — no cameras, no wearables</em>
+  <em>来自 WiFi CSI 信号的实时姿态骨架——无需摄像头、无需可穿戴设备</em>
   <br><br>
-  <a href="https://ruvnet.github.io/RuView/"><strong>▶ Live Observatory Demo</strong></a>
+  <a href="https://ruvnet.github.io/RuView/"><strong>▶ 实时观测站演示</strong></a>
   &nbsp;|&nbsp;
-  <a href="https://ruvnet.github.io/RuView/pose-fusion.html"><strong>▶ Dual-Modal Pose Fusion Demo</strong></a>
+  <a href="https://ruvnet.github.io/RuView/pose-fusion.html"><strong>▶ 双模态姿态融合演示</strong></a>
   &nbsp;|&nbsp;
-  <a href="https://ruvnet.github.io/RuView/pointcloud/"><strong>▶ Live 3D Point Cloud</strong></a>
+  <a href="https://ruvnet.github.io/RuView/pointcloud/"><strong>▶ 实时 3D 点云</strong></a>
   &nbsp;|&nbsp;
-  <a href="https://ruvnet.github.io/RuView/three.js/"><strong>▶ three.js Demos (5)</strong></a>
+  <a href="https://ruvnet.github.io/RuView/three.js/"><strong>▶ three.js 演示（5 个）</strong></a>
 
-> The [server](#-quick-start) is optional for visualization and aggregation — the ESP32 [runs independently](#esp32-s3-hardware-pipeline) for presence detection, vital signs, and fall alerts.
+> [服务器](#-快速开始) 对于可视化和聚合是可选的——ESP32 [独立运行](#esp32-s3-硬件流水线) 进行存在检测、生命体征和跌倒警报。
 >
-> **Live ESP32 pipeline**: Connect an ESP32-S3 node → run the [sensing server](#sensing-server) → open the [pose fusion demo](https://ruvnet.github.io/RuView/pose-fusion.html) for real-time dual-modal pose estimation (webcam + WiFi CSI). See [ADR-059](docs/adr/ADR-059-live-esp32-csi-pipeline.md).
+> **实时 ESP32 流水线**：连接 ESP32-S3 节点 → 运行[感知服务器](#感知服务器) → 打开[姿态融合演示](https://ruvnet.github.io/RuView/pose-fusion.html)进行实时双模态姿态估计（网络摄像头 + WiFi CSI）。参见 [ADR-059](docs/adr/ADR-059-live-esp32-csi-pipeline.md)。
 >
-> **three.js scene gallery** at [`/three.js/`](https://ruvnet.github.io/RuView/three.js/) — five progressively richer ADR-097 demos: helpers, cinematic, GLTF skinned, FBX skinned, and a live MediaPipe→Mixamo retargeting feed driven by ESP32 CSI. Demos 04 and 05 require a local Mixamo `X Bot.fbx` (license boundary — not redistributed).
+> **three.js 场景画廊**位于 [`/three.js/`](https://ruvnet.github.io/RuView/three.js/)——五个逐步丰富的 ADR-097 演示：辅助工具、电影级、GLTF 蒙皮、FBX 蒙皮，以及由 ESP32 CSI 驱动的实时 MediaPipe→Mixamo 重定向流。演示 04 和 05 需要本地 Mixamo `X Bot.fbx` 文件（许可限制——不重新分发）。
 
 
-## 🤗 Pretrained model on Hugging Face
+## 🤗 Hugging Face 上的预训练模型
 
-Pretrained CSI weights live at [`ruvnet/wifi-densepose-pretrained`](https://huggingface.co/ruvnet/wifi-densepose-pretrained) — 12.2M training steps on 60K frames / 610K contrastive triplets, **82.3% held-out temporal-triplet accuracy** (up from 66.4% raw; the older "100% presence" figure was measured on a single-class recording and has been retracted), 4-bit quantized variant fits in 8 KB. The release includes a contrastive **CSI encoder** producing 128-dim embeddings (164,183 emb/s on M4 Pro) and a **presence-detection head**. Per-node LoRA adapters are included for environment-specific fine-tuning.
+预训练 CSI 权重位于 [`ruvnet/wifi-densepose-pretrained`](https://huggingface.co/ruvnet/wifi-densepose-pretrained)——在 60K 帧 / 610K 对比三元组上进行了 12.2M 训练步，**82.3% 保留集时间三元组准确率**（从 66.4% 原始值提升；旧的"100% 存在检测"数据是在单类记录上测量的，已被撤回），4 位量化版本仅 8 KB。该发布包含一个产生 128 维嵌入的对比 **CSI 编码器**（M4 Pro 上 164,183 嵌入/秒）和一个**存在检测头**。包含每个节点的 LoRA 适配器，用于特定环境的微调。
 
 ```bash
-# Download the model bundle
+# 下载模型包
 pip install huggingface_hub
 huggingface-cli download ruvnet/wifi-densepose-pretrained --local-dir models/wifi-densepose-pretrained
 ```
 
-**What works today vs. what's pending wiring:**
+**当前可用的功能与待接线功能：**
 
-| Consumer | Format used | Status |
-|----------|-------------|--------|
-| Python training / evaluation / embedding extraction | `model.safetensors` | ✅ Works — load with `safetensors.torch.load_file` |
-| Inspect / re-export the bundle | `model.rvf.jsonl` (line-by-line JSON) | ✅ Works — plain JSONL |
-| Sensing-server `--model <PATH>` flag | binary RVF (`RVFS` magic) | ⚠️ Loader does not yet accept the JSONL container |
+| 消费者 | 格式 | 状态 |
+|--------|------|------|
+| Python 训练/评估/嵌入提取 | `model.safetensors` | ✅ 可用——使用 `safetensors.torch.load_file` 加载 |
+| 检查/重新导出包 | `model.rvf.jsonl`（逐行 JSON） | ✅ 可用——纯 JSONL |
+| 感知服务器 `--model <路径>` 参数 | 二进制 RVF（`RVFS` 魔术字） | ⚠️ 加载器尚不支持 JSONL 容器 |
 
-**Known gap:** the HF model ships in JSONL RVF format, but `v2/crates/wifi-densepose-sensing-server/src/rvf_container.rs` only parses the binary RVF segment format. Pointing `--model` at `model.rvf.jsonl` currently errors with `invalid magic at offset 0: expected 0x52564653, got 0x7974227B` and the live pipeline degrades to null output rather than falling back to heuristic mode — so for the live sensing-server, run **without** `--model` until a JSONL adapter lands (or the model is re-published as binary RVF). Use the weights from Python / training in the meantime.
+**已知差距：** HF 模型以 JSONL RVF 格式发布，但 `v2/crates/wifi-densepose-sensing-server/src/rvf_container.rs` 仅解析二进制 RVF 段格式。将 `--model` 指向 `model.rvf.jsonl` 当前会报错 `invalid magic at offset 0: expected 0x52564653, got 0x7974227B`，并且实时流水线会降级为空输出而非回退到启发式模式——因此对于实时感知服务器，在 JSONL 适配器就绪（或模型重新以二进制 RVF 发布）之前，请**不带** `--model` 运行。在此期间，可从 Python/训练中使用权重。
 
-**Quantization choices** (all in the HF repo): `model-q2.bin` (4 KB) · `model-q4.bin` ⭐ recommended (8 KB) · `model-q8.bin` (16 KB) · `model.safetensors` full (48 KB)
+**量化选项**（均在 HF 仓库中）：`model-q2.bin`（4 KB）· `model-q4.bin` ⭐ 推荐（8 KB）· `model-q8.bin`（16 KB）· `model.safetensors` 完整版（48 KB）
 
-The separate **17-keypoint pose-estimation model** is now published at [`ruvnet/wifi-densepose-mmfi-pose`](https://huggingface.co/ruvnet/wifi-densepose-mmfi-pose) — **82.69% torso-PCK@20** on MM-Fi (single model) / **83.59%** (3-model ensemble + TTA), beating the prior published SOTA MultiFormer (72.25%) and CSI2Pose (68.41%) on the matched `random_split` protocol. See **Results & proof** below.
+独立的 **17 关键点姿态估计模型**现已发布在 [`ruvnet/wifi-densepose-mmfi-pose`](https://huggingface.co/ruvnet/wifi-densepose-mmfi-pose)——在 MM-Fi 上达到 **82.69% torso-PCK@20**（单模型）/ **83.59%**（3 模型集成 + TTA），在匹配的 `random_split` 协议上超越了先前发布的 SOTA MultiFormer（72.25%）和 CSI2Pose（68.41%）。详见下方**结果与证明**。
 
-### Results & proof
+### 结果与证明
 
-| What | Where | Numbers |
-|------|-------|---------|
-| **MM-Fi pose model (SOTA)** | [`ruvnet/wifi-densepose-mmfi-pose`](https://huggingface.co/ruvnet/wifi-densepose-mmfi-pose) | 82.69% torso-PCK@20 (single) · 83.59% (ensemble+TTA) · 75K-param micro variant 74.30% |
-| **AetherArena benchmark Space** | [`ruvnet/aether-arena`](https://huggingface.co/spaces/ruvnet/aether-arena) | self-correcting, auditable MM-Fi leaderboard |
-| **Full MM-Fi study (honest picture)** | [`docs/benchmarks/mmfi-wifi-sensing-study.md`](docs/benchmarks/mmfi-wifi-sensing-study.md) | pose + action; zero-shot cross-subject ~64%, +~30 s in-room calibration → 72.2% |
-| **Efficiency frontier** | [`docs/benchmarks/wifi-pose-efficiency-frontier.md`](docs/benchmarks/wifi-pose-efficiency-frontier.md) | SOTA-beating WiFi pose in a 20 KB int4 edge model |
-| **Pretrained encoder** | [`ruvnet/wifi-densepose-pretrained`](https://huggingface.co/ruvnet/wifi-densepose-pretrained) | 82.3% held-out temporal-triplet, 8 KB int4 |
-| **Reproducible proof (Trust Kill Switch)** | [`archive/v1/data/proof/verify.py`](archive/v1/data/proof/verify.py) + [`expected_features.sha256`](archive/v1/data/proof/expected_features.sha256) | one-command deterministic pipeline replay (SHA-256 of output vs published hash) |
-| **Benchmark-proof ADR** | [ADR-147](docs/adr/ADR-147-benchmark-proof.md) | how the numbers are produced and verified |
-| **Witness attestation** | [`docs/WITNESS-LOG-028.md`](docs/WITNESS-LOG-028.md) | 33-row capability attestation matrix with per-claim evidence |
+| 内容 | 位置 | 数据 |
+|------|------|------|
+| **MM-Fi 姿态模型（SOTA）** | [`ruvnet/wifi-densepose-mmfi-pose`](https://huggingface.co/ruvnet/wifi-densepose-mmfi-pose) | 82.69% torso-PCK@20（单模型）· 83.59%（集成+TTA）· 75K 参数微缩版 74.30% |
+| **AetherArena 基准测试空间** | [`ruvnet/aether-arena`](https://huggingface.co/spaces/ruvnet/aether-arena) | 自我纠正、可审计的 MM-Fi 排行榜 |
+| **完整 MM-Fi 研究（真实情况）** | [`docs/benchmarks/mmfi-wifi-sensing-study.md`](docs/benchmarks/mmfi-wifi-sensing-study.md) | 姿态 + 动作；零样本跨主体约 64%，+约 30 秒室内校准 → 72.2% |
+| **效率前沿** | [`docs/benchmarks/wifi-pose-efficiency-frontier.md`](docs/benchmarks/wifi-pose-efficiency-frontier.md) | 20 KB int4 边缘模型中超越 SOTA 的 WiFi 姿态 |
+| **预训练编码器** | [`ruvnet/wifi-densepose-pretrained`](https://huggingface.co/ruvnet/wifi-densepose-pretrained) | 82.3% 保留集时间三元组准确率，8 KB int4 |
+| **可复现证明（信任终止开关）** | [`archive/v1/data/proof/verify.py`](archive/v1/data/proof/verify.py) + [`expected_features.sha256`](archive/v1/data/proof/expected_features.sha256) | 一键确定性流水线重放（输出 SHA-256 与发布哈希对比） |
+| **基准测试证明 ADR** | [ADR-147](docs/adr/ADR-147-benchmark-proof.md) | 数据如何生成和验证 |
+| **见证认证** | [`docs/WITNESS-LOG-028.md`](docs/WITNESS-LOG-028.md) | 33 行能力认证矩阵，每项声明附有证据 |
 
 ```bash
-# Reproduce the deterministic pipeline proof yourself (must print VERDICT: PASS):
+# 自行复现确定性流水线证明（必须输出 VERDICT: PASS）：
 python archive/v1/data/proof/verify.py
 ```
 
-Tracked in [#509](https://github.com/ruvnet/RuView/issues/509); see [ADR-079](docs/adr/ADR-079-camera-supervised-pose-finetune.md) phases P7–P9 for the camera-supervised fine-tune path.
+追踪于 [#509](https://github.com/ruvnet/RuView/issues/509)；摄像头监督微调路径参见 [ADR-079](docs/adr/ADR-079-camera-supervised-pose-finetune.md) 的 P7–P9 阶段。
 
 
-## 🧩 Edge Module Catalog
+## 🧩 边缘模块目录
 
 <details>
-<summary><b>🧩 105 edge modules ready to install on a Cognitum appliance</b> &mdash; live catalog from <code>app-registry.json</code> v2.1.0 (updated 2026-05-13). Browse + install at <a href="https://seed.cognitum.one/store">seed.cognitum.one/store</a> or your local appliance <code>http://&lt;appliance&gt;:9000/cogs</code>.</summary>
+<summary><b>🧩 105 个边缘模块，可直接安装在 Cognitum 设备上</b> &mdash; 来自 <code>app-registry.json</code> v2.1.0 的实时目录（更新于 2026-05-13）。在 <a href="https://seed.cognitum.one/store">seed.cognitum.one/store</a> 或本地设备 <code>http://&lt;设备地址&gt;:9000/cogs</code> 浏览和安装。</summary>
 
-Each module is a small signed binary (~400 KB) that runs alongside the WiFi-DensePose sensing stack on a Cognitum-V0 appliance. The catalog updates over the air &mdash; your appliance fetches it via <code>GET /api/v1/edge/registry</code> ([ADR-102](docs/adr/ADR-102-edge-module-registry.md)) and verifies each binary against an Ed25519 signature ([ADR-100](docs/adr/ADR-100-cog-packaging-specification.md)) before install.
+每个模块是一个小型签名二进制文件（约 400 KB），与 WiFi-DensePose 感知栈一起在 Cognitum-V0 设备上运行。目录通过无线方式更新——你的设备通过 <code>GET /api/v1/edge/registry</code>（[ADR-102](docs/adr/ADR-102-edge-module-registry.md)）获取目录，并在安装前使用 Ed25519 签名（[ADR-100](docs/adr/ADR-100-cog-packaging-specification.md)）验证每个二进制文件。
 
-### 🫀 Health &mdash; <sub>14 modules</sub>
+### 🫀 健康 &mdash; <sub>14 个模块</sub>
 
-| ID | What it does | Size | Difficulty |
-|----|--------------|-----:|:----------:|
-| `air-quality-index` | Track indoor air quality with CO2 and particle sensors | 8 KB | Easy |
-| `baby-cry` | Sustained mid-band energy detector for nursery / infant monitoring. Audio-only, no camera. | 451 KB | Easy |
-| `breathing-sync` | Detects when two people breathe in sync | 10 KB | Hard |
-| `cardiac-arrhythmia` | Spots irregular heartbeats and abnormal heart rhythms | 8 KB | Hard |
-| `cough-detect` | Acoustic transient + spectral cough detector with 30s cluster aggregation. Early-warning signal for respiratory illness. | 451 KB | Easy |
-| `dream-stage` | Tracks your sleep stages — light, deep, and dreaming | 14 KB | Hard |
-| `fall-detect` | Two-stage impact + stillness fall detector over ambient feature stream (ESP32 motion / mic). Optional ruview-mode for CSI-based pose reinforcement. | 402 KB | Easy |
-| `gait-analysis` | Detects walking problems and scores fall risk | 12 KB | Hard |
-| `health-monitor` | Contactless heart rate, breathing, sleep, and fall alerts | 30 KB | Med |
-| `respiratory-distress` | Alerts when breathing becomes labored or dangerously fast | 10 KB | Hard |
-| `seizure-detect` | Recognizes seizures and sends immediate alerts | 10 KB | Hard |
-| `sleep-apnea` | Detects when someone stops breathing during sleep | 4 KB | Easy |
-| `snore-monitor` | Periodic low-band energy tracker for sleep-quality / apnea-risk trending. Companion to sleep-apnea cog. | 451 KB | Easy |
-| `vital-trend` | Tracks breathing and heart rate trends over weeks | 6 KB | Med |
+| ID | 功能 | 大小 | 难度 |
+|----|------|-----:|:----:|
+| `air-quality-index` | 使用 CO2 和颗粒物传感器追踪室内空气质量 | 8 KB | 简单 |
+| `baby-cry` | 持续中频能量检测器，用于育婴室/婴儿监控。仅音频，无摄像头。 | 451 KB | 简单 |
+| `breathing-sync` | 检测两人何时同步呼吸 | 10 KB | 困难 |
+| `cardiac-arrhythmia` | 发现不规则心跳和异常心律 | 8 KB | 困难 |
+| `cough-detect` | 声学瞬态 + 频谱咳嗽检测器，带 30 秒聚类聚合。呼吸道疾病的早期预警信号。 | 451 KB | 简单 |
+| `dream-stage` | 追踪你的睡眠阶段——浅睡、深睡和做梦 | 14 KB | 困难 |
+| `fall-detect` | 基于环境特征流（ESP32 运动/麦克风）的两级冲击 + 静止跌倒检测器。可选的 ruview 模式用于基于 CSI 的姿态增强。 | 402 KB | 简单 |
+| `gait-analysis` | 检测行走问题并评估跌倒风险 | 12 KB | 困难 |
+| `health-monitor` | 非接触式心率、呼吸、睡眠和跌倒警报 | 30 KB | 中等 |
+| `respiratory-distress` | 当呼吸变得费力或危险地急促时发出警报 | 10 KB | 困难 |
+| `seizure-detect` | 识别癫痫发作并发送即时警报 | 10 KB | 困难 |
+| `sleep-apnea` | 检测某人睡眠中是否停止呼吸 | 4 KB | 简单 |
+| `snore-monitor` | 周期性低频能量追踪器，用于睡眠质量/呼吸暂停风险趋势分析。与 sleep-apnea cog 配合使用。 | 451 KB | 简单 |
+| `vital-trend` | 追踪数周内的呼吸和心率趋势 | 6 KB | 中等 |
 
-### 🔒 Security &mdash; <sub>14 modules</sub>
+### 🔒 安全 &mdash; <sub>14 个模块</sub>
 
-| ID | What it does | Size | Difficulty |
-|----|--------------|-----:|:----------:|
-| `audit-logger` | Record every action for compliance — tamper-proof log | 8 KB | Easy |
-| `behavioral-profiler` | Learns normal behavior and flags anything unusual | 12 KB | Hard |
-| `fleet-auth` | Manage device certificates and access across all seeds | 12 KB | Med |
-| `glass-break` | Two-phase bang + shatter acoustic detector. Distinguishes glass break from ordinary impulse noise. | 451 KB | Easy |
-| `gunshot-detect` | Saturating peak + exponential decay acoustic detector with optional ruview CSI motion-drop reinforcement. | 451 KB | Easy |
-| `intrusion` | Alerts when an unauthorized person enters a room | 6 KB | Med |
-| `intrusion-detect-ml` | Detect network attacks using machine learning | 14 KB | Hard |
-| `loitering` | Alerts when someone lingers too long in one spot | 3 KB | Easy |
-| `network-firewall` | Block unauthorized network access per cog | 6 KB | Easy |
-| `panic-motion` | Detects sudden panicked or erratic movement | 6 KB | Med |
-| `perimeter-breach` | Guards multiple zones and shows entry direction | 10 KB | Med |
-| `prompt-shield` | Blocks signal replay and injection attacks on the seed | 10 KB | Med |
-| `tailgating` | Catches when someone sneaks in behind a badge holder | 6 KB | Med |
-| `weapon-detect` | Detects concealed metal objects on a person | 8 KB | Hard |
+| ID | 功能 | 大小 | 难度 |
+|----|------|-----:|:----:|
+| `audit-logger` | 记录每个操作以符合合规要求——防篡改日志 | 8 KB | 简单 |
+| `behavioral-profiler` | 学习正常行为并标记任何异常情况 | 12 KB | 困难 |
+| `fleet-auth` | 管理所有 seed 的设备证书和访问权限 | 12 KB | 中等 |
+| `glass-break` | 两阶段砰击 + 破碎声学检测器。区分玻璃破碎与普通脉冲噪声。 | 451 KB | 简单 |
+| `gunshot-detect` | 饱和峰值 + 指数衰减声学检测器，可选的 ruview CSI 运动下降增强。 | 451 KB | 简单 |
+| `intrusion` | 当未经授权的人员进入房间时发出警报 | 6 KB | 中等 |
+| `intrusion-detect-ml` | 使用机器学习检测网络攻击 | 14 KB | 困难 |
+| `loitering` | 当某人在一个地方逗留过久时发出警报 | 3 KB | 简单 |
+| `network-firewall` | 按 cog 阻止未经授权的网络访问 | 6 KB | 简单 |
+| `panic-motion` | 检测突然的恐慌或异常运动 | 6 KB | 中等 |
+| `perimeter-breach` | 守卫多个区域并显示进入方向 | 10 KB | 中等 |
+| `prompt-shield` | 阻止对 seed 的信号重放和注入攻击 | 10 KB | 中等 |
+| `tailgating` | 捕捉尾随在持证人员身后潜入的行为 | 6 KB | 中等 |
+| `weapon-detect` | 检测人员身上隐藏的金属物体 | 8 KB | 困难 |
 
-### 🏢 Building &mdash; <sub>11 modules</sub>
+### 🏢 建筑 &mdash; <sub>11 个模块</sub>
 
-| ID | What it does | Size | Difficulty |
-|----|--------------|-----:|:----------:|
-| `beehive-monitor` | Acoustic hive state classifier. Detects healthy / chaotic / queenless / swarming / robbing via hum-band energy + chaos + piping autocorr. | 451 KB | Easy |
-| `elevator-count` | Counts how many people are in an elevator | 8 KB | Med |
-| `energy-audit` | Learns your schedule and cuts wasted energy | 6 KB | Med |
-| `frost-warning` | Predicts frost 6 hours ahead via temperature trend + dewpoint-depression gate. Field/orchard agriculture. | 451 KB | Easy |
-| `hvac-presence` | Turns heating and cooling on when you arrive | 3 KB | Easy |
-| `lighting-zones` | Turns lights on and off as people move between rooms | 4 KB | Easy |
-| `meeting-room` | Shows if a meeting room is free or occupied | 5 KB | Easy |
-| `occupancy-zones` | Counts people in each room through walls | 8 KB | Med |
-| `predictive-maintenance` | Vibration harmonic analyzer for rotating equipment. Tracks F1 / 2×F1 / high-order / sideband energy to score degradation severity. | 451 KB | Easy |
-| `smoke-fire` | Multi-signal smoke and fire detector. Fuses acoustic crackle, thermal drift proxy, and optional ruview CSI plume signature. Not a UL-listed replacement for code-required smoke alarms. | 451 KB | Easy |
-| `water-leak` | Persistent low-amplitude hiss + periodic drip acoustic detector with multi-minute persistence gate. Two-stage likely → confirmed. | 451 KB | Easy |
+| ID | 功能 | 大小 | 难度 |
+|----|------|-----:|:----:|
+| `beehive-monitor` | 声学蜂箱状态分类器。通过嗡嗡声能量 + 混沌度 + 管道自相关检测健康/混乱/失王/分蜂/盗蜂状态。 | 451 KB | 简单 |
+| `elevator-count` | 统计电梯内的人数 | 8 KB | 中等 |
+| `energy-audit` | 学习你的日程安排并减少能源浪费 | 6 KB | 中等 |
+| `frost-warning` | 通过温度趋势 + 露点差阈值提前 6 小时预测霜冻。适用于田地/果园农业。 | 451 KB | 简单 |
+| `hvac-presence` | 当你到达时自动开启供暖和制冷 | 3 KB | 简单 |
+| `lighting-zones` | 当人们在房间之间移动时自动开关灯 | 4 KB | 简单 |
+| `meeting-room` | 显示会议室是否空闲或占用 | 5 KB | 简单 |
+| `occupancy-zones` | 穿墙统计每个房间的人数 | 8 KB | 中等 |
+| `predictive-maintenance` | 旋转设备的振动谐波分析器。追踪 F1 / 2×F1 / 高阶 / 边带能量以评估退化严重程度。 | 451 KB | 简单 |
+| `smoke-fire` | 多信号烟雾和火灾检测器。融合声学爆裂声、热漂移代理和可选的 ruview CSI 烟羽特征。不能替代法规要求的 UL 认证烟雾报警器。 | 451 KB | 简单 |
+| `water-leak` | 持续低振幅嘶嘶声 + 周期性滴水的声学检测器，带多分钟持续门控。两阶段：可能 → 确认。 | 451 KB | 简单 |
 
-### 🛍️ Retail &mdash; <sub>7 modules</sub>
+### 🛍️ 零售 &mdash; <sub>7 个模块</sub>
 
-| ID | What it does | Size | Difficulty |
-|----|--------------|-----:|:----------:|
-| `customer-flow` | Counts foot traffic in and out of each entrance | 8 KB | Med |
-| `dwell-heatmap` | Shows where customers spend the most time | 6 KB | Med |
-| `package-detect` | Sustained CSI-shift detector for porch / loading bay package arrivals and departures. Requires ESP32 CSI ruview input. | 451 KB | Easy |
-| `parking-occupancy` | Per-zone parking occupancy via ESP32 CSI subcarrier-amplitude shift. Tracks utilization and churn-per-hour. Requires ruview. | 451 KB | Easy |
-| `queue-length` | Estimates line length and wait time | 6 KB | Med |
-| `shelf-engagement` | Detects when customers interact with products | 6 KB | Med |
-| `table-turnover` | Tracks which restaurant tables are free or occupied | 4 KB | Easy |
+| ID | 功能 | 大小 | 难度 |
+|----|------|-----:|:----:|
+| `customer-flow` | 统计每个入口进出的人流量 | 8 KB | 中等 |
+| `dwell-heatmap` | 显示顾客在哪些区域停留时间最长 | 6 KB | 中等 |
+| `package-detect` | 持续 CSI 偏移检测器，用于门廊/装卸区包裹到达和离开。需要 ESP32 CSI ruview 输入。 | 451 KB | 简单 |
+| `parking-occupancy` | 通过 ESP32 CSI 子载波幅度偏移检测各区域停车占用情况。追踪利用率和每小时周转率。需要 ruview。 | 451 KB | 简单 |
+| `queue-length` | 估算排队长度和等待时间 | 6 KB | 中等 |
+| `shelf-engagement` | 检测顾客何时与商品互动 | 6 KB | 中等 |
+| `table-turnover` | 追踪哪些餐桌空闲或占用 | 4 KB | 简单 |
 
-### 🏭 Industrial &mdash; <sub>7 modules</sub>
+### 🏭 工业 &mdash; <sub>7 个模块</sub>
 
-| ID | What it does | Size | Difficulty |
-|----|--------------|-----:|:----------:|
-| `clean-room` | Enforces max headcount in controlled environments | 4 KB | Easy |
-| `confined-space` | Monitors workers in tight spaces for safety | 5 KB | Med |
-| `forklift-proximity` | Warns if a forklift gets too close to workers | 10 KB | Hard |
-| `livestock-monitor` | Monitors animals for distress, escape, or illness | 6 KB | Med |
-| `ppe-compliance` | Cog-composition layer: alerts when ruview-densepose detects presence in a restricted zone without an accompanying PPE-camera-cog confirmation vector. | 387 KB | Easy |
-| `slip-fall-zone` | Pre-fall risk detector. Fires when motion-variance drop, splash audio, and optional cautious-gait CSI all signal elevated slip risk. | 451 KB | Easy |
-| `structural-vibration` | Detects dangerous vibrations in buildings or machines | 8 KB | Hard |
+| ID | 功能 | 大小 | 难度 |
+|----|------|-----:|:----:|
+| `clean-room` | 在受控环境中强制执行最大人数限制 | 4 KB | 简单 |
+| `confined-space` | 监控狭小空间内工人的安全 | 5 KB | 中等 |
+| `forklift-proximity` | 当叉车过于靠近工人时发出警告 | 10 KB | 困难 |
+| `livestock-monitor` | 监控动物的 distress、逃跑或疾病状态 | 6 KB | 中等 |
+| `ppe-compliance` | Cog 组合层：当 ruview-densepose 检测到受限区域有人但缺少 PPE 摄像头 cog 确认向量时发出警报。 | 387 KB | 简单 |
+| `slip-fall-zone` | 跌倒前风险检测器。当运动方差下降、溅水声和可选的谨慎步态 CSI 都指示滑倒风险升高时触发。 | 451 KB | 简单 |
+| `structural-vibration` | 检测建筑物或机器中的危险振动 | 8 KB | 困难 |
 
-### 🔬 Research &mdash; <sub>12 modules</sub>
+### 🔬 研究 &mdash; <sub>12 个模块</sub>
 
-| ID | What it does | Size | Difficulty |
-|----|--------------|-----:|:----------:|
-| `emotion-detect` | Reads stress and calm from body language and breathing | 10 KB | Hard |
-| `energy-harvester` | Optimize solar and battery for off-grid seed deployment | 6 KB | Med |
-| `gesture-language` | Recognizes sign language gestures in real time | 12 KB | Hard |
-| `ghost-hunter` | Finds unexplained environmental anomalies — for fun | 10 KB | Hard |
-| `happiness-score` | Estimates well-being from movement and mood signals | 8 KB | Med |
-| `hyperbolic-space` | Maps data into curved space for tree-like structures | 12 KB | Hard |
-| `music-conductor` | Reads a conductor's gestures for tempo and dynamics | 12 KB | Hard |
-| `plant-growth` | Tracks plant growth rate and day/night cycles | 8 KB | Med |
-| `rain-detect` | Detects when rain starts, stops, and how heavy it is | 6 KB | Med |
-| `ruview-densepose` | Full body pose tracking from WiFi — no cameras needed | 50 KB | Hard |
-| `sound-classifier` | Identify sounds like glass break, alarm, or baby cry | 16 KB | Hard |
-| `time-crystal` | Experiments with repeating time-pattern symmetry | 12 KB | Hard |
+| ID | 功能 | 大小 | 难度 |
+|----|------|-----:|:----:|
+| `emotion-detect` | 从肢体语言和呼吸中读取压力和平静状态 | 10 KB | 困难 |
+| `energy-harvester` | 优化离网 seed 部署的太阳能和电池使用 | 6 KB | 中等 |
+| `gesture-language` | 实时识别手语手势 | 12 KB | 困难 |
+| `ghost-hunter` | 发现无法解释的环境异常——娱乐用途 | 10 KB | 困难 |
+| `happiness-score` | 从运动和情绪信号估计幸福感 | 8 KB | 中等 |
+| `hyperbolic-space` | 将数据映射到弯曲空间以处理树状结构 | 12 KB | 困难 |
+| `music-conductor` | 读取指挥家的手势以获取节奏和力度 | 12 KB | 困难 |
+| `plant-growth` | 追踪植物生长速率和昼夜周期 | 8 KB | 中等 |
+| `rain-detect` | 检测何时开始下雨、停止以及雨量大小 | 6 KB | 中等 |
+| `ruview-densepose` | 通过 WiFi 进行全身姿态追踪——无需摄像头 | 50 KB | 困难 |
+| `sound-classifier` | 识别玻璃破碎、警报或婴儿哭声等声音 | 16 KB | 困难 |
+| `time-crystal` | 重复时间模式对称性实验 | 12 KB | 困难 |
 
-### 🤖 Ai &mdash; <sub>15 modules</sub>
+### 🤖 AI &mdash; <sub>15 个模块</sub>
 
-| ID | What it does | Size | Difficulty |
-|----|--------------|-----:|:----------:|
-| `anomaly-attractor` | Learns what's normal and catches anything weird | 10 KB | Hard |
-| `cognitive-pipeline` | FastGRNN anomaly gate + SmolLM2 sparse-LLM inference for on-device Pi Zero 2W cognitive events | 320 KB | Hard |
-| `dtw-gesture-learn` | Teach custom hand gestures by showing examples | 14 KB | Med |
-| `ewc-lifelong` | Learns new things without forgetting old lessons | 8 KB | Hard |
-| `federated-learning` | Train AI across seeds without sharing raw data | 18 KB | Hard |
-| `goap-autonomy` | Plans and executes goals on its own | 14 KB | Hard |
-| `meta-adapt` | Automatically tunes itself for best performance | 10 KB | Hard |
-| `micro-hnsw` | Fast on-device fingerprinting and classification | 12 KB | Med |
-| `neural-trader` | Spot market patterns and trends from live data | 20 KB | Hard |
-| `pagerank-influence` | Finds the most influential person in a group | 12 KB | Med |
-| `pattern-sequence` | Detects daily routines and repeated habits | 10 KB | Med |
-| `rag-local` | Search your documents using AI — runs on the seed | 14 KB | Med |
-| `spiking-tracker` | Brain-inspired tracker that runs on tiny hardware | 16 KB | Hard |
-| `temporal-logic` | Enforces safety rules on live event streams | 12 KB | Hard |
-| `time-series-forecast` | Predict sensor trends using historical patterns | 12 KB | Med |
+| ID | 功能 | 大小 | 难度 |
+|----|------|-----:|:----:|
+| `anomaly-attractor` | 学习正常模式并捕捉任何异常情况 | 10 KB | 困难 |
+| `cognitive-pipeline` | FastGRNN 异常门控 + SmolLM2 稀疏 LLM 推理，用于设备端 Pi Zero 2W 认知事件 | 320 KB | 困难 |
+| `dtw-gesture-learn` | 通过展示示例来教授自定义手势 | 14 KB | 中等 |
+| `ewc-lifelong` | 学习新知识而不忘记旧知识 | 8 KB | 困难 |
+| `federated-learning` | 跨 seed 训练 AI 而无需共享原始数据 | 18 KB | 困难 |
+| `goap-autonomy` | 自主规划和执行目标 | 14 KB | 困难 |
+| `meta-adapt` | 自动调整自身以获得最佳性能 | 10 KB | 困难 |
+| `micro-hnsw` | 快速的设备端指纹识别和分类 | 12 KB | 中等 |
+| `neural-trader` | 从实时数据中发现市场模式和趋势 | 20 KB | 困难 |
+| `pagerank-influence` | 找出群体中最有影响力的人 | 12 KB | 中等 |
+| `pattern-sequence` | 检测日常规律和重复习惯 | 10 KB | 中等 |
+| `rag-local` | 使用 AI 搜索文档——在 seed 上运行 | 14 KB | 中等 |
+| `spiking-tracker` | 受大脑启发的追踪器，在微型硬件上运行 | 16 KB | 困难 |
+| `temporal-logic` | 在实时事件流上强制执行安全规则 | 12 KB | 困难 |
+| `time-series-forecast` | 使用历史模式预测传感器趋势 | 12 KB | 中等 |
 
-### 🐝 Swarm &mdash; <sub>11 modules</sub>
+### 🐝 群集 &mdash; <sub>11 个模块</sub>
 
-| ID | What it does | Size | Difficulty |
-|----|--------------|-----:|:----------:|
-| `swarm-backup-restore` | Auto-backup data to other seeds — one-click restore | 8 KB | Easy |
-| `swarm-cluster-monitor` | Live dashboard of every seed's health and status | 6 KB | Easy |
-| `swarm-consensus` | Seeds vote before making critical changes together | 16 KB | Hard |
-| `swarm-delta-sync` | Auto-sync data between seeds — only sends changes | 8 KB | Med |
-| `swarm-deploy` | Install or remove cogs on all seeds at once | 10 KB | Med |
-| `swarm-distributed-store` | Spread data across seeds and search them all at once | 14 KB | Hard |
-| `swarm-edge-orchestrator` | Manage all ESP32 sensor nodes from one place | 14 KB | Hard |
-| `swarm-load-balancer` | Spread queries across seeds so no single one overloads | 10 KB | Med |
-| `swarm-mesh-manager` | Find, connect, and monitor all seeds on your network | 12 KB | Easy |
-| `swarm-mqtt-bridge` | Share events between seeds over MQTT messaging | 6 KB | Easy |
-| `swarm-witness-federation` | Share tamper-proof audit trails across seeds | 12 KB | Hard |
+| ID | 功能 | 大小 | 难度 |
+|----|------|-----:|:----:|
+| `swarm-backup-restore` | 自动备份数据到其他 seed——一键恢复 | 8 KB | 简单 |
+| `swarm-cluster-monitor` | 每个 seed 健康和状态的实时仪表板 | 6 KB | 简单 |
+| `swarm-consensus` | seed 在共同做出关键更改前进行投票 | 16 KB | 困难 |
+| `swarm-delta-sync` | seed 之间自动同步数据——仅发送变更 | 8 KB | 中等 |
+| `swarm-deploy` | 一次性在所有 seed 上安装或移除 cogs | 10 KB | 中等 |
+| `swarm-distributed-store` | 跨 seed 分布数据并一次性搜索所有数据 | 14 KB | 困难 |
+| `swarm-edge-orchestrator` | 从一个位置管理所有 ESP32 传感器节点 | 14 KB | 困难 |
+| `swarm-load-balancer` | 跨 seed 分发查询，避免单个 seed 过载 | 10 KB | 中等 |
+| `swarm-mesh-manager` | 发现、连接和监控网络上的所有 seed | 12 KB | 简单 |
+| `swarm-mqtt-bridge` | 通过 MQTT 消息在 seed 之间共享事件 | 6 KB | 简单 |
+| `swarm-witness-federation` | 跨 seed 共享防篡改审计追踪 | 12 KB | 困难 |
 
-### 📡 Signal &mdash; <sub>6 modules</sub>
+### 📡 信号 &mdash; <sub>6 个模块</sub>
 
-| ID | What it does | Size | Difficulty |
-|----|--------------|-----:|:----------:|
-| `coherence-gate` | Filters out noisy signals and keeps clean ones | 8 KB | Med |
-| `flash-attention` | Focuses sensing on specific areas for better accuracy | 12 KB | Med |
-| `optimal-transport` | Measures motion using shape-aware signal comparison | 12 KB | Hard |
-| `person-matching` | Tells apart multiple people in the same room | 18 KB | Hard |
-| `sparse-recovery` | Recovers missing signal data from partial readings | 16 KB | Hard |
-| `temporal-compress` | Shrinks old data to save memory without losing meaning | 14 KB | Med |
+| ID | 功能 | 大小 | 难度 |
+|----|------|-----:|:----:|
+| `coherence-gate` | 过滤噪声信号并保留干净信号 | 8 KB | 中等 |
+| `flash-attention` | 将感知集中在特定区域以提高准确性 | 12 KB | 中等 |
+| `optimal-transport` | 使用形状感知信号比较来测量运动 | 12 KB | 困难 |
+| `person-matching` | 区分同一房间内的多人 | 18 KB | 困难 |
+| `sparse-recovery` | 从部分读数中恢复缺失的信号数据 | 16 KB | 困难 |
+| `temporal-compress` | 压缩旧数据以节省内存而不丢失含义 | 14 KB | 中等 |
 
-### 🌐 Network &mdash; <sub>1 modules</sub>
+### 🌐 网络 &mdash; <sub>1 个模块</sub>
 
-| ID | What it does | Size | Difficulty |
-|----|--------------|-----:|:----------:|
-| `tailscale` | Reach the seed from anywhere via a private WireGuard mesh (Tailscale). Userspace mode — no root. | 700 KB | Med |
+| ID | 功能 | 大小 | 难度 |
+|----|------|-----:|:----:|
+| `tailscale` | 通过私有 WireGuard 网状网络（Tailscale）从任何地方访问 seed。用户态模式——无需 root。 | 700 KB | 中等 |
 
-### 🛠️ Developer &mdash; <sub>7 modules</sub>
+### 🛠️ 开发者 &mdash; <sub>7 个模块</sub>
 
-| ID | What it does | Size | Difficulty |
-|----|--------------|-----:|:----------:|
-| `adversarial` | Detects tampered or spoofed sensor signals | 4 KB | Easy |
-| `coherence` | Monitors signal quality across multiple channels | 4 KB | Easy |
-| `gesture` | Core gesture recognition building block for cogs | 6 KB | Med |
-| `interference-search` | Searches many possibilities at once for fast answers | 14 KB | Hard |
-| `psycho-symbolic` | Reasons over knowledge graphs with multiple styles | 16 KB | Hard |
-| `quantum-coherence` | Quantum-inspired model for advanced signal states | 16 KB | Hard |
-| `self-healing-mesh` | Keeps sensor mesh running even when nodes drop out | 14 KB | Hard |
+| ID | 功能 | 大小 | 难度 |
+|----|------|-----:|:----:|
+| `adversarial` | 检测被篡改或伪造的传感器信号 | 4 KB | 简单 |
+| `coherence` | 监控多个信道的信号质量 | 4 KB | 简单 |
+| `gesture` | cog 的核心手势识别构建块 | 6 KB | 中等 |
+| `interference-search` | 同时搜索多种可能性以快速获得答案 | 14 KB | 困难 |
+| `psycho-symbolic` | 使用多种风格在知识图谱上进行推理 | 16 KB | 困难 |
+| `quantum-coherence` | 受量子启发的先进信号状态模型 | 16 KB | 困难 |
+| `self-healing-mesh` | 即使节点离线也能保持传感器网状网络运行 | 14 KB | 困难 |
 
-> ℹ️ Build your own cog: see [ADR-100](docs/adr/ADR-100-cog-packaging-specification.md) for the packaging spec. The first cog this repo ships into the catalog lives in [v2/crates/cog-pose-estimation/](v2/crates/cog-pose-estimation/) (17-keypoint WiFi pose, [ADR-101](docs/adr/ADR-101-pose-estimation-cog.md)).
+> ℹ️ 构建自己的 cog：参见 [ADR-100](docs/adr/ADR-100-cog-packaging-specification.md) 了解打包规范。此仓库发布到目录的第一个 cog 位于 [v2/crates/cog-pose-estimation/](v2/crates/cog-pose-estimation/)（17 关键点 WiFi 姿态，[ADR-101](docs/adr/ADR-101-pose-estimation-cog.md)）。
 
 </details>
 
 
-## 🔬 How It Works
+## 🔬 工作原理
 
-WiFi routers flood every room with radio waves. When a person moves — or even breathes — those waves scatter differently. WiFi DensePose reads that scattering pattern and reconstructs what happened:
+WiFi 路由器用无线电波充满每个房间。当人移动——甚至呼吸时——这些电波会以不同的方式散射。WiFi DensePose 读取这种散射模式并重建发生的事件：
 
 ```
-WiFi Router → radio waves pass through room → hit human body → scatter
+WiFi 路由器 → 无线电波穿过房间 → 撞击人体 → 散射
     ↓
-ESP32 mesh (4-6 nodes) captures CSI on channels 1/6/11 via TDM protocol
+ESP32 网状网络（4-6 个节点）通过 TDM 协议在信道 1/6/11 上捕获 CSI
     ↓
-Multi-Band Fusion: 3 channels × 56 subcarriers = 168 virtual subcarriers per link
+多频融合：3 个信道 × 56 个子载波 = 每条链路 168 个虚拟子载波
     ↓
-Multistatic Fusion: N×(N-1) links → attention-weighted cross-viewpoint embedding
+多站融合：N×(N-1) 条链路 → 注意力加权跨视角嵌入
     ↓
-Coherence Gate: accept/reject measurements → stable for days without tuning
+相干门控：接受/拒绝测量 → 无需调整即可稳定运行数天
     ↓
-Signal Processing: Hampel, SpotFi, Fresnel, BVP, spectrogram → clean features
+信号处理：Hampel、SpotFi、菲涅尔、BVP、频谱图 → 干净的特征
     ↓
-AI Backbone (RuVector): attention, graph algorithms, compression, field model
+AI 骨干网络（RuVector）：注意力机制、图算法、压缩、场模型
     ↓
-Signal-Line Protocol (CRV): 6-stage gestalt → sensory → topology → coherence → search → model
+信号线协议（CRV）：6 阶段 格式塔 → 感知 → 拓扑 → 相干 → 搜索 → 模型
     ↓
-Neural Network: processed signals → 17 body keypoints + vital signs + room model
+神经网络：处理后的信号 → 17 个身体关键点 + 生命体征 + 房间模型
     ↓
-Output: real-time pose, breathing, heart rate, room fingerprint, drift alerts
+输出：实时姿态、呼吸、心率、房间指纹、漂移警报
 ```
 
-No training cameras required — the [Self-Learning system (ADR-024)](docs/adr/ADR-024-contrastive-csi-embedding-model.md) bootstraps from raw WiFi data alone. [MERIDIAN (ADR-027)](docs/adr/ADR-027-cross-environment-domain-generalization.md) ensures the model works in any room, not just the one it trained in.
+无需训练摄像头——[自学习系统（ADR-024）](docs/adr/ADR-024-contrastive-csi-embedding-model.md)仅从原始 WiFi 数据自举。[MERIDIAN（ADR-027）](docs/adr/ADR-027-cross-environment-domain-generalization.md)确保模型在任何房间都能工作，而不仅仅是在训练过的房间。
 
 ---
 
-## 🏢 Use Cases & Applications
+## 🏢 用例与应用
 
-WiFi sensing works anywhere WiFi exists. No new hardware in most cases — just software on existing access points or a $8 ESP32 add-on. Because there are no cameras, deployments avoid privacy regulations (GDPR video, HIPAA imaging) by design.
+WiFi 感知在任何有 WiFi 的地方都能工作。大多数情况下无需新硬件——只需在现有接入点上安装软件或添加一个 8 美元的 ESP32 模块。由于没有摄像头，部署从设计上就避免了隐私法规（GDPR 视频、HIPAA 影像）的限制。
 
-**Scaling:** Each AP distinguishes ~3-5 people (56 subcarriers). Multi-AP multiplies linearly — a 4-AP retail mesh covers ~15-20 occupants. No hard software limit; the practical ceiling is signal physics.
+**扩展性：** 每个 AP 可区分约 3-5 人（56 个子载波）。多 AP 线性倍增——4 个 AP 的零售网状网络可覆盖约 15-20 人。没有硬性软件限制；实际上限取决于信号物理特性。
 
-| | Why WiFi sensing wins | Traditional alternative |
-|---|----------------------|----------------------|
-| 🔒 | **No video, no GDPR/HIPAA imaging rules** | Cameras require consent, signage, data retention policies |
-| 🧱 | **Works through walls, shelving, debris** | Cameras need line-of-sight per room |
-| 🌙 | **Works in total darkness** | Cameras need IR or visible light |
-| 💰 | **$0-$8 per zone** (existing WiFi or ESP32) | Camera systems: $200-$2,000 per zone |
-| 🔌 | **WiFi already deployed everywhere** | PIR/radar sensors require new wiring per room |
+| | WiFi 感知的优势 | 传统替代方案 |
+|---|----------------|-------------|
+| 🔒 | **无视频，无 GDPR/HIPAA 影像规定** | 摄像头需要同意、标识、数据保留策略 |
+| 🧱 | **穿墙、穿过货架和废墟工作** | 摄像头每个房间都需要视线 |
+| 🌙 | **在完全黑暗中工作** | 摄像头需要红外或可见光 |
+| 💰 | **每个区域 0-8 美元**（现有 WiFi 或 ESP32） | 摄像头系统：每个区域 200-2,000 美元 |
+| 🔌 | **WiFi 已无处不在** | PIR/雷达传感器每个房间都需要新布线 |
 
 <details>
-<summary><strong>🏥 Everyday</strong> — Healthcare, retail, office, hospitality (commodity WiFi)</summary>
+<summary><strong>🏥 日常用例</strong> — 医疗、零售、办公、酒店（普通 WiFi）</summary>
 
-| Use Case | What It Does | Hardware | Key Metric | Edge Module |
-|----------|-------------|----------|------------|-------------|
-| **Elderly care / assisted living** | Fall detection, nighttime activity monitoring, breathing rate during sleep — no wearable compliance needed | 1 ESP32-S3 per room ($8) | Fall alert <2s | [Sleep Apnea](docs/edge-modules/medical.md), [Gait Analysis](docs/edge-modules/medical.md) |
-| **Hospital patient monitoring** | Continuous breathing + heart rate for non-critical beds without wired sensors; nurse alert on anomaly | 1-2 APs per ward | Breathing: 6-30 BPM | [Respiratory Distress](docs/edge-modules/medical.md), [Cardiac Arrhythmia](docs/edge-modules/medical.md) |
-| **Emergency room triage** | Automated occupancy count + wait-time estimation; detect patient distress (abnormal breathing) in waiting areas | Existing hospital WiFi | Occupancy accuracy >95% | [Queue Length](docs/edge-modules/retail.md), [Panic Motion](docs/edge-modules/security.md) |
-| **Retail occupancy & flow** | Real-time foot traffic, dwell time by zone, queue length — no cameras, no opt-in, GDPR-friendly | Existing store WiFi + 1 ESP32 | Dwell resolution ~1m | [Customer Flow](docs/edge-modules/retail.md), [Dwell Heatmap](docs/edge-modules/retail.md) |
-| **Office space utilization** | Which desks/rooms are actually occupied, meeting room no-shows, HVAC optimization based on real presence | Existing enterprise WiFi | Presence latency <1s | [Meeting Room](docs/edge-modules/building.md), [HVAC Presence](docs/edge-modules/building.md) |
-| **Hotel & hospitality** | Room occupancy without door sensors, minibar/bathroom usage patterns, energy savings on empty rooms | Existing hotel WiFi | 15-30% HVAC savings | [Energy Audit](docs/edge-modules/building.md), [Lighting Zones](docs/edge-modules/building.md) |
-| **Restaurants & food service** | Table turnover tracking, kitchen staff presence, restroom occupancy displays — no cameras in dining areas | Existing WiFi | Queue wait ±30s | [Table Turnover](docs/edge-modules/retail.md), [Queue Length](docs/edge-modules/retail.md) |
-| **Parking garages** | Pedestrian presence in stairwells and elevators where cameras have blind spots; security alert if someone lingers | Existing WiFi | Through-concrete walls | [Loitering](docs/edge-modules/security.md), [Elevator Count](docs/edge-modules/building.md) |
+| 用例 | 功能 | 硬件 | 关键指标 | 边缘模块 |
+|------|------|------|----------|----------|
+| **老年护理/辅助生活** | 跌倒检测、夜间活动监测、睡眠呼吸频率——无需可穿戴设备依从性 | 每个房间 1 个 ESP32-S3（8 美元） | 跌倒警报 <2 秒 | [睡眠呼吸暂停](docs/edge-modules/medical.md)、[步态分析](docs/edge-modules/medical.md) |
+| **医院患者监护** | 非重症病床的持续呼吸 + 心率监测，无需有线传感器；异常时护士警报 | 每个病房 1-2 个 AP | 呼吸：6-30 BPM | [呼吸窘迫](docs/edge-modules/medical.md)、[心律失常](docs/edge-modules/medical.md) |
+| **急诊分诊** | 自动占用计数 + 等待时间估算；检测候诊区患者 distress（异常呼吸） | 现有医院 WiFi | 占用准确率 >95% | [排队长度](docs/edge-modules/retail.md)、[恐慌运动](docs/edge-modules/security.md) |
+| **零售占用与客流** | 实时人流量、各区域停留时间、排队长度——无摄像头、无需选择加入、符合 GDPR | 现有商店 WiFi + 1 个 ESP32 | 停留分辨率约 1 米 | [顾客流](docs/edge-modules/retail.md)、[停留热力图](docs/edge-modules/retail.md) |
+| **办公空间利用率** | 哪些办公桌/房间实际被占用、会议室未到场、基于真实存在的 HVAC 优化 | 现有企业 WiFi | 存在延迟 <1 秒 | [会议室](docs/edge-modules/building.md)、[HVAC 存在](docs/edge-modules/building.md) |
+| **酒店与招待** | 无需门传感器的房间占用、迷你吧/浴室使用模式、空房节能 | 现有酒店 WiFi | 15-30% HVAC 节能 | [能源审计](docs/edge-modules/building.md)、[灯光区域](docs/edge-modules/building.md) |
+| **餐厅与餐饮服务** | 餐桌翻台追踪、厨房员工存在、卫生间占用显示——用餐区无摄像头 | 现有 WiFi | 排队等待 ±30 秒 | [餐桌翻台](docs/edge-modules/retail.md)、[排队长度](docs/edge-modules/retail.md) |
+| **停车场** | 摄像头盲区的楼梯间和电梯行人存在检测；有人逗留时安全警报 | 现有 WiFi | 穿透混凝土墙 | [逗留检测](docs/edge-modules/security.md)、[电梯计数](docs/edge-modules/building.md) |
 
 </details>
 
 <details>
-<summary><strong>🏟️ Specialized</strong> — Events, fitness, education, civic (CSI-capable hardware)</summary>
+<summary><strong>🏟️ 专业用例</strong> — 活动、健身、教育、市政（支持 CSI 的硬件）</summary>
 
-| Use Case | What It Does | Hardware | Key Metric | Edge Module |
-|----------|-------------|----------|------------|-------------|
-| **Smart home automation** | Room-level presence triggers (lights, HVAC, music) that work through walls — no dead zones, no motion-sensor timeouts | 2-3 ESP32-S3 nodes ($24) | Through-wall range ~5m | [HVAC Presence](docs/edge-modules/building.md), [Lighting Zones](docs/edge-modules/building.md) |
-| **Fitness & sports** | Rep counting, posture correction, breathing cadence during exercise — no wearable, no camera in locker rooms | 3+ ESP32-S3 mesh | Pose: 17 keypoints | [Breathing Sync](docs/edge-modules/exotic.md), [Gait Analysis](docs/edge-modules/medical.md) |
-| **Childcare & schools** | Naptime breathing monitoring, playground headcount, restricted-area alerts — privacy-safe for minors | 2-4 ESP32-S3 per zone | Breathing: ±1 BPM | [Sleep Apnea](docs/edge-modules/medical.md), [Perimeter Breach](docs/edge-modules/security.md) |
-| **Event venues & concerts** | Crowd density mapping, crush-risk detection via breathing compression, emergency evacuation flow tracking | Multi-AP mesh (4-8 APs) | Density per m² | [Customer Flow](docs/edge-modules/retail.md), [Panic Motion](docs/edge-modules/security.md) |
-| **Stadiums & arenas** | Section-level occupancy for dynamic pricing, concession staffing, emergency egress flow modeling | Enterprise AP grid | 15-20 per AP mesh | [Dwell Heatmap](docs/edge-modules/retail.md), [Queue Length](docs/edge-modules/retail.md) |
-| **Houses of worship** | Attendance counting without facial recognition — privacy-sensitive congregations, multi-room campus tracking | Existing WiFi | Zone-level accuracy | [Elevator Count](docs/edge-modules/building.md), [Energy Audit](docs/edge-modules/building.md) |
-| **Warehouse & logistics** | Worker safety zones, forklift proximity alerts, occupancy in hazardous areas — works through shelving and pallets | Industrial AP mesh | Alert latency <500ms | [Forklift Proximity](docs/edge-modules/industrial.md), [Confined Space](docs/edge-modules/industrial.md) |
-| **Civic infrastructure** | Public restroom occupancy (no cameras possible), subway platform crowding, shelter headcount during emergencies | Municipal WiFi + ESP32 | Real-time headcount | [Customer Flow](docs/edge-modules/retail.md), [Loitering](docs/edge-modules/security.md) |
-| **Museums & galleries** | Visitor flow heatmaps, exhibit dwell time, crowd bottleneck alerts — no cameras near artwork (flash/theft risk) | Existing WiFi | Zone dwell ±5s | [Dwell Heatmap](docs/edge-modules/retail.md), [Shelf Engagement](docs/edge-modules/retail.md) |
-
-</details>
-
-<details>
-<summary><strong>🤖 Robotics & Industrial</strong> — Autonomous systems, manufacturing, android spatial awareness</summary>
-
-WiFi sensing gives robots and autonomous systems a spatial awareness layer that works where LIDAR and cameras fail — through dust, smoke, fog, and around corners. The CSI signal field acts as a "sixth sense" for detecting humans in the environment without requiring line-of-sight.
-
-| Use Case | What It Does | Hardware | Key Metric | Edge Module |
-|----------|-------------|----------|------------|-------------|
-| **Cobot safety zones** | Detect human presence near collaborative robots — auto-slow or stop before contact, even behind obstructions | 2-3 ESP32-S3 per cell | Presence latency <100ms | [Forklift Proximity](docs/edge-modules/industrial.md), [Perimeter Breach](docs/edge-modules/security.md) |
-| **Warehouse AMR navigation** | Autonomous mobile robots sense humans around blind corners, through shelving racks — no LIDAR occlusion | ESP32 mesh along aisles | Through-shelf detection | [Forklift Proximity](docs/edge-modules/industrial.md), [Loitering](docs/edge-modules/security.md) |
-| **Android / humanoid spatial awareness** | Ambient human pose sensing for social robots — detect gestures, approach direction, and personal space without cameras always on | Onboard ESP32-S3 module | 17-keypoint pose | [Gesture Language](docs/edge-modules/exotic.md), [Emotion Detection](docs/edge-modules/exotic.md) |
-| **Manufacturing line monitoring** | Worker presence at each station, ergonomic posture alerts, headcount for shift compliance — works through equipment | Industrial AP per zone | Pose + breathing | [Confined Space](docs/edge-modules/industrial.md), [Gait Analysis](docs/edge-modules/medical.md) |
-| **Construction site safety** | Exclusion zone enforcement around heavy machinery, fall detection from scaffolding, personnel headcount | Ruggedized ESP32 mesh | Alert <2s, through-dust | [Panic Motion](docs/edge-modules/security.md), [Structural Vibration](docs/edge-modules/industrial.md) |
-| **Agricultural robotics** | Detect farm workers near autonomous harvesters in dusty/foggy field conditions where cameras are unreliable | Weatherproof ESP32 nodes | Range ~10m open field | [Forklift Proximity](docs/edge-modules/industrial.md), [Rain Detection](docs/edge-modules/exotic.md) |
-| **Drone landing zones** | Verify landing area is clear of humans — WiFi sensing works in rain, dust, and low light where downward cameras fail | Ground ESP32 nodes | Presence: >95% accuracy | [Perimeter Breach](docs/edge-modules/security.md), [Tailgating](docs/edge-modules/security.md) |
-| **Clean room monitoring** | Personnel tracking without cameras (particle contamination risk from camera fans) — gown compliance via pose | Existing cleanroom WiFi | No particulate emission | [Clean Room](docs/edge-modules/industrial.md), [Livestock Monitor](docs/edge-modules/industrial.md) |
+| 用例 | 功能 | 硬件 | 关键指标 | 边缘模块 |
+|------|------|------|----------|----------|
+| **智能家居自动化** | 穿墙工作的房间级存在触发（灯光、HVAC、音乐）——无死角、无运动传感器超时 | 2-3 个 ESP32-S3 节点（24 美元） | 穿墙范围约 5 米 | [HVAC 存在](docs/edge-modules/building.md)、[灯光区域](docs/edge-modules/building.md) |
+| **健身与运动** | 动作计数、姿势纠正、运动呼吸节奏——无需可穿戴设备、更衣室无摄像头 | 3+ 个 ESP32-S3 网状网络 | 姿态：17 个关键点 | [呼吸同步](docs/edge-modules/exotic.md)、[步态分析](docs/edge-modules/medical.md) |
+| **托儿所与学校** | 午睡呼吸监测、操场人数统计、限制区域警报——对未成年人隐私安全 | 每个区域 2-4 个 ESP32-S3 | 呼吸：±1 BPM | [睡眠呼吸暂停](docs/edge-modules/medical.md)、[周界入侵](docs/edge-modules/security.md) |
+| **活动场馆与音乐会** | 人群密度映射、通过呼吸压缩检测挤压风险、紧急疏散流追踪 | 多 AP 网状网络（4-8 个 AP） | 每平方米密度 | [顾客流](docs/edge-modules/retail.md)、[恐慌运动](docs/edge-modules/security.md) |
+| **体育场与竞技场** | 分区级占用用于动态定价、特许经营人员配置、紧急出口流建模 | 企业 AP 网格 | 每个 AP 网状网络 15-20 人 | [停留热力图](docs/edge-modules/retail.md)、[排队长度](docs/edge-modules/retail.md) |
+| **宗教场所** | 无需面部识别的出席人数统计——隐私敏感的会众、多房间园区追踪 | 现有 WiFi | 区域级准确率 | [电梯计数](docs/edge-modules/building.md)、[能源审计](docs/edge-modules/building.md) |
+| **仓库与物流** | 工人安全区域、叉车接近警报、危险区域占用——穿过货架和托盘工作 | 工业 AP 网状网络 | 警报延迟 <500 毫秒 | [叉车接近](docs/edge-modules/industrial.md)、[狭小空间](docs/edge-modules/industrial.md) |
+| **市政基础设施** | 公共卫生间占用（无法安装摄像头）、地铁站台拥挤度、紧急情况下避难所人数统计 | 市政 WiFi + ESP32 | 实时人数统计 | [顾客流](docs/edge-modules/retail.md)、[逗留检测](docs/edge-modules/security.md) |
+| **博物馆与画廊** | 访客流热力图、展品停留时间、人群瓶颈警报——艺术品附近无摄像头（闪光/盗窃风险） | 现有 WiFi | 区域停留 ±5 秒 | [停留热力图](docs/edge-modules/retail.md)、[货架互动](docs/edge-modules/retail.md) |
 
 </details>
 
 <details>
-<summary><strong>🔥 Extreme</strong> — Through-wall, disaster, defense, underground</summary>
+<summary><strong>🤖 机器人及工业</strong> — 自主系统、制造业、机器人空间感知</summary>
 
-These scenarios exploit WiFi's ability to penetrate solid materials — concrete, rubble, earth — where no optical or infrared sensor can reach. The WiFi-Mat disaster module (ADR-001) is specifically designed for this tier.
+WiFi 感知为机器人和自主系统提供了一个空间感知层，在 LIDAR 和摄像头失效的地方——穿过灰尘、烟雾、雾气以及绕过角落——仍能工作。CSI 信号场充当"第六感"，无需视线即可检测环境中的人类。
 
-| Use Case | What It Does | Hardware | Key Metric | Edge Module |
-|----------|-------------|----------|------------|-------------|
-| **Search & rescue (WiFi-Mat)** | Detect survivors through rubble/debris via breathing signature, START triage color classification, 3D localization | Portable ESP32 mesh + laptop | Through 30cm concrete | [Respiratory Distress](docs/edge-modules/medical.md), [Seizure Detection](docs/edge-modules/medical.md) |
-| **Firefighting** | Locate occupants through smoke and walls before entry; breathing detection confirms life signs remotely | Portable mesh on truck | Works in zero visibility | [Sleep Apnea](docs/edge-modules/medical.md), [Panic Motion](docs/edge-modules/security.md) |
-| **Prison & secure facilities** | Cell occupancy verification, distress detection (abnormal vitals), perimeter sensing — no camera blind spots | Dedicated AP infrastructure | 24/7 vital signs | [Cardiac Arrhythmia](docs/edge-modules/medical.md), [Loitering](docs/edge-modules/security.md) |
-| **Military / tactical** | Through-wall personnel detection, room clearing confirmation, hostage vital signs at standoff distance | Directional WiFi + custom FW | Range: 5m through wall | [Perimeter Breach](docs/edge-modules/security.md), [Weapon Detection](docs/edge-modules/security.md) |
-| **Border & perimeter security** | Detect human presence in tunnels, behind fences, in vehicles — passive sensing, no active illumination to reveal position | Concealed ESP32 mesh | Passive / covert | [Perimeter Breach](docs/edge-modules/security.md), [Tailgating](docs/edge-modules/security.md) |
-| **Mining & underground** | Worker presence in tunnels where GPS/cameras fail, breathing detection after collapse, headcount at safety points | Ruggedized ESP32 mesh | Through rock/earth | [Confined Space](docs/edge-modules/industrial.md), [Respiratory Distress](docs/edge-modules/medical.md) |
-| **Maritime & naval** | Below-deck personnel tracking through steel bulkheads (limited range, requires tuning), man-overboard detection | Ship WiFi + ESP32 | Through 1-2 bulkheads | [Structural Vibration](docs/edge-modules/industrial.md), [Panic Motion](docs/edge-modules/security.md) |
-| **Wildlife research** | Non-invasive animal activity monitoring in enclosures or dens — no light pollution, no visual disturbance | Weatherproof ESP32 nodes | Zero light emission | [Livestock Monitor](docs/edge-modules/industrial.md), [Dream Stage](docs/edge-modules/exotic.md) |
+| 用例 | 功能 | 硬件 | 关键指标 | 边缘模块 |
+|------|------|------|----------|----------|
+| **协作机器人安全区域** | 检测协作机器人附近的人类存在——在接触前自动减速或停止，即使在障碍物后方 | 每个单元 2-3 个 ESP32-S3 | 存在延迟 <100 毫秒 | [叉车接近](docs/edge-modules/industrial.md)、[周界入侵](docs/edge-modules/security.md) |
+| **仓库 AMR 导航** | 自主移动机器人感知盲角周围、穿过货架的人类——无 LIDAR 遮挡 | 沿过道的 ESP32 网状网络 | 穿货架检测 | [叉车接近](docs/edge-modules/industrial.md)、[逗留检测](docs/edge-modules/security.md) |
+| **人形机器人空间感知** | 社交机器人的环境人体姿态感知——检测手势、接近方向和个人空间，无需摄像头常开 | 板载 ESP32-S3 模块 | 17 关键点姿态 | [手势语言](docs/edge-modules/exotic.md)、[情绪检测](docs/edge-modules/exotic.md) |
+| **制造线监控** | 每个工位的工人存在、人体工学姿势警报、轮班合规人数统计——穿过设备工作 | 每个区域工业 AP | 姿态 + 呼吸 | [狭小空间](docs/edge-modules/industrial.md)、[步态分析](docs/edge-modules/medical.md) |
+| **建筑工地安全** | 重型机械周围的禁区执行、脚手架跌倒检测、人员统计 | 加固型 ESP32 网状网络 | 警报 <2 秒，穿透灰尘 | [恐慌运动](docs/edge-modules/security.md)、[结构振动](docs/edge-modules/industrial.md) |
+| **农业机器人** | 在摄像头不可靠的灰尘/雾天田间条件下检测自主收割机附近的农场工人 | 防水 ESP32 节点 | 开阔场地范围约 10 米 | [叉车接近](docs/edge-modules/industrial.md)、[降雨检测](docs/edge-modules/exotic.md) |
+| **无人机降落区** | 验证降落区域无人类——WiFi 感知在雨、尘和弱光条件下工作，而下视摄像头会失效 | 地面 ESP32 节点 | 存在检测：>95% 准确率 | [周界入侵](docs/edge-modules/security.md)、[尾随检测](docs/edge-modules/security.md) |
+| **洁净室监控** | 无需摄像头的人员追踪（摄像头风扇带来的颗粒污染风险）——通过姿态检测洁净服合规性 | 现有洁净室 WiFi | 无颗粒排放 | [洁净室](docs/edge-modules/industrial.md)、[牲畜监控](docs/edge-modules/industrial.md) |
+
+</details>
+
+<details>
+<summary><strong>🔥 极端用例</strong> — 穿墙、灾难、国防、地下</summary>
+
+这些场景利用了 WiFi 穿透固体材料——混凝土、瓦砾、泥土——的能力，这是光学或红外传感器无法达到的。WiFi-Mat 灾难模块（ADR-001）专门为此层级设计。
+
+| 用例 | 功能 | 硬件 | 关键指标 | 边缘模块 |
+|------|------|------|----------|----------|
+| **搜索与救援（WiFi-Mat）** | 通过呼吸特征检测瓦砾/废墟中的幸存者、START 分诊颜色分类、3D 定位 | 便携式 ESP32 网状网络 + 笔记本电脑 | 穿透 30 厘米混凝土 | [呼吸窘迫](docs/edge-modules/medical.md)、[癫痫检测](docs/edge-modules/medical.md) |
+| **消防** | 进入前通过烟雾和墙壁定位被困人员；呼吸检测远程确认生命迹象 | 消防车上的便携式网状网络 | 在零能见度下工作 | [睡眠呼吸暂停](docs/edge-modules/medical.md)、[恐慌运动](docs/edge-modules/security.md) |
+| **监狱与安全设施** | 牢房占用验证、distress 检测（异常生命体征）、周界感知——无摄像头盲区 | 专用 AP 基础设施 | 24/7 生命体征监测 | [心律失常](docs/edge-modules/medical.md)、[逗留检测](docs/edge-modules/security.md) |
+| **军事/战术** | 穿墙人员检测、房间清场确认、对峙距离的人质生命体征 | 定向 WiFi + 自定义固件 | 穿墙范围：5 米 | [周界入侵](docs/edge-modules/security.md)、[武器检测](docs/edge-modules/security.md) |
+| **边境与周界安全** | 检测隧道内、围栏后、车辆中的人类存在——被动感知，无主动照射暴露位置 | 隐藏式 ESP32 网状网络 | 被动/隐蔽 | [周界入侵](docs/edge-modules/security.md)、[尾随检测](docs/edge-modules/security.md) |
+| **采矿与地下** | GPS/摄像头失效的隧道中工人存在检测、坍塌后呼吸检测、安全点人数统计 | 加固型 ESP32 网状网络 | 穿透岩石/泥土 | [狭小空间](docs/edge-modules/industrial.md)、[呼吸窘迫](docs/edge-modules/medical.md) |
+| **海事与海军** | 通过钢制舱壁的甲板下人员追踪（范围有限，需调优）、落水检测 | 船舶 WiFi + ESP32 | 穿透 1-2 个舱壁 | [结构振动](docs/edge-modules/industrial.md)、[恐慌运动](docs/edge-modules/security.md) |
+| **野生动物研究** | 围栏或巢穴中非侵入性动物活动监测——无光污染、无视觉干扰 | 防水 ESP32 节点 | 零光排放 | [牲畜监控](docs/edge-modules/industrial.md)、[梦境阶段](docs/edge-modules/exotic.md) |
 
 </details>
 
@@ -494,159 +494,159 @@ These scenarios exploit WiFi's ability to penetrate solid materials — concrete
 ---
 
 <details>
-<summary><strong>🧠 Self-Learning WiFi AI (ADR-024)</strong> — Adaptive recognition, self-optimization, and intelligent anomaly detection</summary>
+<summary><strong>🧠 自学习 WiFi AI（ADR-024）</strong> — 自适应识别、自我优化和智能异常检测</summary>
 
-Every WiFi signal that passes through a room creates a unique fingerprint of that space. WiFi-DensePose already reads these fingerprints to track people, but until now it threw away the internal "understanding" after each reading. The Self-Learning WiFi AI captures and preserves that understanding as compact, reusable vectors — and continuously optimizes itself for each new environment.
+每个穿过房间的 WiFi 信号都会创建该空间的独特指纹。WiFi-DensePose 已经在读取这些指纹来追踪人员，但在此之前，它在每次读取后丢弃了内部的"理解"。自学习 WiFi AI 将这些理解捕获并保存为紧凑、可重用的向量——并持续为每个新环境进行自我优化。
 
-**What it does in plain terms:**
-- Turns any WiFi signal into a 128-number "fingerprint" that uniquely describes what's happening in a room
-- Learns entirely on its own from raw WiFi data — no cameras, no labeling, no human supervision needed
-- Recognizes rooms, detects intruders, identifies people, and classifies activities using only WiFi
-- Runs on an $8 ESP32 chip (the entire model fits in 55 KB of memory)
-- Produces both body pose tracking AND environment fingerprints in a single computation
+**通俗解释：**
+- 将任何 WiFi 信号转换为一个 128 位数字的"指纹"，唯一描述房间内正在发生的事情
+- 完全从原始 WiFi 数据自主学习——无需摄像头、无需标注、无需人工监督
+- 仅使用 WiFi 即可识别房间、检测入侵者、识别人物和分类活动
+- 在 8 美元的 ESP32 芯片上运行（整个模型仅需 55 KB 内存）
+- 在单次计算中同时产生身体姿态追踪和环境指纹
 
-**Key Capabilities**
+**关键能力**
 
-| What | How it works | Why it matters |
-|------|-------------|----------------|
-| **Self-supervised learning** | The model watches WiFi signals and teaches itself what "similar" and "different" look like, without any human-labeled data | Deploy anywhere — just plug in a WiFi sensor and wait 10 minutes |
-| **Room identification** | Each room produces a distinct WiFi fingerprint pattern | Know which room someone is in without GPS or beacons |
-| **Anomaly detection** | An unexpected person or event creates a fingerprint that doesn't match anything seen before | Automatic intrusion and fall detection as a free byproduct |
-| **Person re-identification** | Each person disturbs WiFi in a slightly different way, creating a personal signature | Track individuals across sessions without cameras |
-| **Environment adaptation** | MicroLoRA adapters (1,792 parameters per room) fine-tune the model for each new space | Adapts to a new room with minimal data — 93% less than retraining from scratch |
-| **Memory preservation** | EWC++ regularization remembers what was learned during pretraining | Switching to a new task doesn't erase prior knowledge |
-| **Hard-negative mining** | Training focuses on the most confusing examples to learn faster | Better accuracy with the same amount of training data |
+| 功能 | 工作原理 | 重要性 |
+|------|----------|--------|
+| **自监督学习** | 模型观察 WiFi 信号并自学"相似"和"不同"的样子，无需任何人工标注数据 | 随处部署——只需插入 WiFi 传感器并等待 10 分钟 |
+| **房间识别** | 每个房间产生独特的 WiFi 指纹模式 | 无需 GPS 或信标即可知道某人在哪个房间 |
+| **异常检测** | 意外的人或事件会产生与之前所见都不匹配的指纹 | 自动入侵和跌倒检测作为免费副产品 |
+| **人员重识别** | 每个人以略微不同的方式扰动 WiFi，创建个人签名 | 无需摄像头即可跨会话追踪个体 |
+| **环境适应** | MicroLoRA 适配器（每个房间 1,792 个参数）为每个新空间微调模型 | 以最少的数据适应新房间——比从头重新训练少 93% |
+| **记忆保留** | EWC++ 正则化记住预训练期间学到的知识 | 切换到新任务不会擦除先前的知识 |
+| **难负样本挖掘** | 训练专注于最令人困惑的示例以更快学习 | 相同训练数据量下获得更好的准确率 |
 
-**Architecture**
+**架构**
 
 ```
-WiFi Signal [56 channels] → Transformer + Graph Neural Network
-                                  ├→ 128-dim environment fingerprint (for search + identification)
-                                  └→ 17-joint body pose (for human tracking)
+WiFi 信号 [56 信道] → Transformer + 图神经网络
+                                  ├→ 128 维环境指纹（用于搜索和识别）
+                                  └→ 17 关节身体姿态（用于人体追踪）
 ```
 
-**Quick Start**
+**快速开始**
 
 ```bash
-# Step 1: Learn from raw WiFi data (no labels needed)
+# 步骤 1：从原始 WiFi 数据学习（无需标签）
 cargo run -p wifi-densepose-sensing-server -- --pretrain --dataset data/csi/ --pretrain-epochs 50
 
-# Step 2: Fine-tune with pose labels for full capability
+# 步骤 2：使用姿态标签微调以获得完整能力
 cargo run -p wifi-densepose-sensing-server -- --train --dataset data/mmfi/ --epochs 100 --save-rvf model.rvf
 
-# Step 3: Use the model — extract fingerprints from live WiFi
+# 步骤 3：使用模型——从实时 WiFi 提取指纹
 cargo run -p wifi-densepose-sensing-server -- --model model.rvf --embed
 
-# Step 4: Search — find similar environments or detect anomalies
+# 步骤 4：搜索——查找相似环境或检测异常
 cargo run -p wifi-densepose-sensing-server -- --model model.rvf --build-index env
 ```
 
-**Training Modes**
+**训练模式**
 
-| Mode | What you need | What you get |
-|------|--------------|-------------|
-| Self-Supervised | Just raw WiFi data | A model that understands WiFi signal structure |
-| Supervised | WiFi data + body pose labels | Full pose tracking + environment fingerprints |
-| Cross-Modal | WiFi data + camera footage | Fingerprints aligned with visual understanding |
+| 模式 | 所需数据 | 获得结果 |
+|------|----------|----------|
+| 自监督 | 仅原始 WiFi 数据 | 理解 WiFi 信号结构的模型 |
+| 监督 | WiFi 数据 + 身体姿态标签 | 完整姿态追踪 + 环境指纹 |
+| 跨模态 | WiFi 数据 + 摄像头画面 | 与视觉理解对齐的指纹 |
 
-**Fingerprint Index Types**
+**指纹索引类型**
 
-| Index | What it stores | Real-world use |
-|-------|---------------|----------------|
-| `env_fingerprint` | Average room fingerprint | "Is this the kitchen or the bedroom?" |
-| `activity_pattern` | Activity boundaries | "Is someone cooking, sleeping, or exercising?" |
-| `temporal_baseline` | Normal conditions | "Something unusual just happened in this room" |
-| `person_track` | Individual movement signatures | "Person A just entered the living room" |
+| 索引 | 存储内容 | 实际用途 |
+|------|----------|----------|
+| `env_fingerprint` | 平均房间指纹 | "这是厨房还是卧室？" |
+| `activity_pattern` | 活动边界 | "有人在做饭、睡觉还是锻炼？" |
+| `temporal_baseline` | 正常条件 | "这个房间刚刚发生了不寻常的事情" |
+| `person_track` | 个体运动特征 | "A 刚刚进入了客厅" |
 
-**Model Size**
+**模型大小**
 
-| Component | Parameters | Memory (on ESP32) |
-|-----------|-----------|-------------------|
-| Transformer backbone | ~28,000 | 28 KB |
-| Embedding projection head | ~25,000 | 25 KB |
-| Per-room MicroLoRA adapter | ~1,800 | 2 KB |
-| **Total** | **~55,000** | **55 KB** (of 520 KB available) |
+| 组件 | 参数 | 内存（ESP32 上） |
+|------|------|-----------------|
+| Transformer 骨干网络 | 约 28,000 | 28 KB |
+| 嵌入投影头 | 约 25,000 | 25 KB |
+| 每房间 MicroLoRA 适配器 | 约 1,800 | 2 KB |
+| **总计** | **约 55,000** | **55 KB**（可用 520 KB） |
 
-The self-learning system builds on the [AI Backbone (RuVector)](#ai-backbone-ruvector) signal-processing layer — attention, graph algorithms, and compression — adding contrastive learning on top.
+自学习系统建立在 [AI 骨干网络（RuVector）](#ai-骨干网络-ruvector) 信号处理层之上——注意力机制、图算法和压缩——并在其上添加对比学习。
 
-See [`docs/adr/ADR-024-contrastive-csi-embedding-model.md`](docs/adr/ADR-024-contrastive-csi-embedding-model.md) for full architectural details.
+完整架构详情参见 [`docs/adr/ADR-024-contrastive-csi-embedding-model.md`](docs/adr/ADR-024-contrastive-csi-embedding-model.md)。
 
 </details>
 
 ---
 
-## 🧩 Claude Code & Codex Plugin
+## 🧩 Claude Code 与 Codex 插件
 
-RuView ships a [Claude Code](https://docs.anthropic.com/en/docs/claude-code) plugin (and Codex prompt mirror) that wraps the whole workflow — onboarding, ESP32 setup, configuration, sensing apps, model training, advanced multistatic sensing, CLI/API/WASM, mmWave radar, and witness verification — as 9 skills, 7 `/ruview-*` commands, and 3 agents. It lives in [`plugins/ruview/`](plugins/ruview/README.md); the marketplace manifest is [`.claude-plugin/marketplace.json`](.claude-plugin/marketplace.json) at the repo root.
+RuView 附带一个 [Claude Code](https://docs.anthropic.com/en/docs/claude-code) 插件（以及 Codex 提示镜像），将整个工作流程——入门引导、ESP32 设置、配置、感知应用、模型训练、高级多站感知、CLI/API/WASM、毫米波雷达和见证验证——封装为 9 个技能、7 个 `/ruview-*` 命令和 3 个代理。它位于 [`plugins/ruview/`](plugins/ruview/README.md)；市场清单位于仓库根目录的 [`.claude-plugin/marketplace.json`](.claude-plugin/marketplace.json)。
 
 ```bash
-# In Claude Code — add this repo as a plugin marketplace, then install:
+# 在 Claude Code 中——将此仓库添加为插件市场，然后安装：
 /plugin marketplace add ruvnet/RuView
 /plugin install ruview@ruview
 
-# Or try it for one session without installing (from a local clone of the repo):
+# 或在单次会话中试用而不安装（从仓库的本地克隆）：
 claude --plugin-dir ./plugins/ruview
 
-# Then, in Claude Code:
-#   /ruview-start      → onboarding (Docker demo / repo build / live ESP32)
-#   /ruview-flash      → build + flash ESP32 firmware
-#   /ruview-provision  → provision WiFi creds, sink IP, channel/MAC, mesh slots
-#   /ruview-app        → run a sensing application (presence / vitals / pose / sleep / MAT / point cloud)
-#   /ruview-train      → train / evaluate / publish a model (incl. GPU on GCloud)
-#   /ruview-advanced   → multistatic / tomography / cross-viewpoint / mesh-security
-#   /ruview-verify     → tests + deterministic proof + witness bundle
+# 然后在 Claude Code 中：
+#   /ruview-start      → 入门引导（Docker 演示 / 仓库构建 / 实时 ESP32）
+#   /ruview-flash      → 构建 + 烧录 ESP32 固件
+#   /ruview-provision  → 配置 WiFi 凭据、接收端 IP、信道/MAC、网状网络槽位
+#   /ruview-app        → 运行感知应用（存在 / 生命体征 / 姿态 / 睡眠 / MAT / 点云）
+#   /ruview-train      → 训练 / 评估 / 发布模型（包括 GCloud 上的 GPU）
+#   /ruview-advanced   → 多站 / 层析成像 / 交叉视角 / 网状网络安全
+#   /ruview-verify     → 测试 + 确定性证明 + 见证包
 ```
 
-**Codex (OpenAI CLI):** `cp plugins/ruview/codex/prompts/*.md ~/.codex/prompts/` — the seven `/ruview-*` commands are mirrored as Codex prompts; [`plugins/ruview/codex/AGENTS.md`](plugins/ruview/codex/AGENTS.md) carries the project rules. See [`plugins/ruview/codex/README.md`](plugins/ruview/codex/README.md).
+**Codex（OpenAI CLI）：** `cp plugins/ruview/codex/prompts/*.md ~/.codex/prompts/` — 七个 `/ruview-*` 命令镜像为 Codex 提示；[`plugins/ruview/codex/AGENTS.md`](plugins/ruview/codex/AGENTS.md) 包含项目规则。参见 [`plugins/ruview/codex/README.md`](plugins/ruview/codex/README.md)。
 
-Verify the plugin structure: `bash plugins/ruview/scripts/smoke.sh`. Full details: [`plugins/ruview/README.md`](plugins/ruview/README.md).
-
----
-
-## 📖 Documentation
-
-| Document | Description |
-|----------|-------------|
-| [User Guide](docs/user-guide.md) | Step-by-step guide: installation, first run, API usage, hardware setup, training |
-| [Build Guide](docs/build-guide.md) | Building from source (Rust and Python) |
-| [**Home Assistant + Matter Integration**](docs/integrations/home-assistant.md) | **Works with Home Assistant** via MQTT auto-discovery + **Works with Matter** (Apple Home / Google Home / Alexa / SmartThings) — full entity catalog, 3 starter blueprints, Lovelace dashboards, privacy mode, threshold tuning ([ADR-115](docs/adr/ADR-115-home-assistant-integration.md)). |
-| [**BFLD — Beamforming Feedback Layer for Detection**](v2/crates/wifi-densepose-bfld/README.md) | New privacy-gated WiFi sensing layer that measures + structurally prevents identity leakage from 802.11ac/ax Beamforming Feedback Information. Three type-enforced invariants (raw BFI never exits node, identity embedding is in-RAM-only, cross-site correlation cryptographically impossible via per-site BLAKE3 keyed hash + daily rotation). Ships full operator surface (`BfldPipeline`, `BfldPipelineHandle`, Soul Signature `SoulMatchOracle` integration), MQTT topic router + HA-DISCO + availability + LWT, 3 operator HA blueprints, two runnable examples, eclipse-mosquitto:2 CI service container. 327+ tests. [ADR-118](docs/adr/ADR-118-bfld-beamforming-feedback-layer-for-detection.md) umbrella + sub-ADRs [119](docs/adr/ADR-119-bfld-frame-format-and-wire-protocol.md)/[120](docs/adr/ADR-120-bfld-privacy-class-and-hash-rotation.md)/[121](docs/adr/ADR-121-bfld-identity-risk-scoring.md)/[122](docs/adr/ADR-122-bfld-ruview-ha-matter-exposure.md)/[123](docs/adr/ADR-123-bfld-capture-path-nexmon-and-esp32.md). Research dossier: [`docs/research/BFLD/`](docs/research/BFLD/) (11 files, 13,544 words). |
-| [**SENSE-BRIDGE — rvagent MCP server**](tools/ruview-mcp/README.md) | Dual-transport MCP server (`@ruvnet/rvagent`) bridging the RuView sensing stack to AI agents (Claude Code, Cursor, ruflo swarms). 6 tools wired: `ruview.presence.now`, `ruview.vitals.get_{breathing,heart_rate,all}`, `ruview.bfld.last_scan`, `ruview.bfld.subscribe`. stdio + Streamable HTTP (`POST /mcp`, Origin-validated, bearer-token auth, `127.0.0.1` bind). Full 20-tool Zod schema barrel + 5 RUVIEW-POLICY governance tools. 93 tests. [ADR-124](docs/adr/ADR-124-rvagent-mcp-ruvector-npm-integration.md). Try: `npx @ruvnet/rvagent stdio`. |
-| [Semantic Primitives — Precision/Recall](docs/integrations/semantic-primitives-metrics.md) | Per-primitive F1 on the held-out paired-capture set: someone-sleeping, possible-distress, room-active, elderly-inactivity-anomaly, meeting, bathroom, fall-risk, bed-exit, no-movement, multi-room. |
-| [Claude Code / Codex Plugin](plugins/ruview/README.md) | The `ruview` plugin + marketplace — skills, `/ruview-*` commands, agents, and the Codex prompt mirror |
-| [Architecture Decisions](docs/adr/README.md) | 96 ADRs — why each technical choice was made, organized by domain (hardware, signal processing, ML, platform, infrastructure) |
-| [Domain Models](docs/ddd/README.md) | 8 DDD models (RuvSense, Signal Processing, Training Pipeline, Hardware Platform, Sensing Server, WiFi-Mat, CHCI, rvCSI) — bounded contexts, aggregates, domain events, and ubiquitous language |
-| [rvCSI — edge RF sensing runtime](https://github.com/ruvnet/rvcsi) | Rust-first / TypeScript-accessible / hardware-abstracted CSI runtime: multi-source ingestion (incl. real nexmon_csi `.pcap` from a **Raspberry Pi 5** / Pi 4 / Pi 3B+ — CYW43455 / BCM43455c0) → validation → DSP → typed events → RuVector RF memory ([ADR-095](docs/adr/ADR-095-rvcsi-edge-rf-sensing-platform.md), [ADR-096](docs/adr/ADR-096-rvcsi-ffi-crate-layout.md), [domain model](docs/ddd/rvcsi-domain-model.md)). Now its own repo — [`ruvnet/rvcsi`](https://github.com/ruvnet/rvcsi) — vendored here under `vendor/rvcsi`; 9 `rvcsi-*` crates on crates.io, `@ruv/rvcsi` on npm, plus a Claude Code plugin. |
-| [Desktop App](v2/crates/wifi-densepose-desktop/README.md) | **WIP** — Tauri v2 desktop app for node management, OTA updates, WASM deployment, and mesh visualization |
-| `ruview-swarm` | Drone swarm control system (ADR-148) — hierarchical-mesh topology, Raft consensus, MARL, CSI sensing payload, MAVLink/PX4/ArduPilot compatibility, Ruflo AI-agent integration |
-| [Medical Examples](examples/medical/README.md) | Contactless blood pressure, heart rate, breathing rate via 60 GHz mmWave radar — $15 hardware, no wearable |
-| [Extended Documentation](docs/readme-details.md) | Latest additions, key features, installation, quick start, signal processing, training, CLI, testing, deployment, and changelog |
+验证插件结构：`bash plugins/ruview/scripts/smoke.sh`。完整详情：[`plugins/ruview/README.md`](plugins/ruview/README.md)。
 
 ---
 
-## 🚧 Beta software
+## 📖 文档
 
-> **Beta Software** — Under active development. APIs and firmware may change. Known limitations:
-> - ESP32-C3 and original ESP32 are not supported (single-core, insufficient for CSI DSP)
-> - Single ESP32 deployments have limited spatial resolution — use 2+ nodes or add a [Cognitum Seed](https://cognitum.one) for best results
-> - Camera-free pose accuracy is limited (PCK@20 ≈ 2.5% with proxy labels) — [camera ground-truth training](docs/adr/ADR-079-camera-ground-truth-training.md) targets **35%+ PCK@20**; the pipeline is implemented, but the data-collection and evaluation phases (ADR-079 P7–P9) are still pending.
+| 文档 | 说明 |
+|------|------|
+| [用户指南](docs/user-guide.md) | 分步指南：安装、首次运行、API 使用、硬件设置、训练 |
+| [构建指南](docs/build-guide.md) | 从源码构建（Rust 和 Python） |
+| [**Home Assistant + Matter 集成**](docs/integrations/home-assistant.md) | **与 Home Assistant 配合使用**（通过 MQTT 自动发现）+ **与 Matter 配合使用**（Apple Home / Google Home / Alexa / SmartThings）——完整实体目录、3 个入门蓝图、Lovelace 仪表板、隐私模式、阈值调优（[ADR-115](docs/adr/ADR-115-home-assistant-integration.md)）。 |
+| [**BFLD — 波束赋形反馈检测层**](v2/crates/wifi-densepose-bfld/README.md) | 新的隐私保护 WiFi 感知层，测量并从结构上防止 802.11ac/ax 波束赋形反馈信息中的身份泄露。三个类型强制不变量（原始 BFI 永不离开节点、身份嵌入仅在内存中、通过每站点 BLAKE3 密钥哈希 + 每日轮换实现跨站点关联在密码学上不可能）。包含完整操作接口（`BfldPipeline`、`BfldPipelineHandle`、灵魂签名 `SoulMatchOracle` 集成）、MQTT 主题路由器 + HA-DISCO + availability + LWT、3 个操作员 HA 蓝图、两个可运行示例、eclipse-mosquitto:2 CI 服务容器。327+ 测试。[ADR-118](docs/adr/ADR-118-bfld-beamforming-feedback-layer-for-detection.md) 总括 + 子 ADR [119](docs/adr/ADR-119-bfld-frame-format-and-wire-protocol.md)/[120](docs/adr/ADR-120-bfld-privacy-class-and-hash-rotation.md)/[121](docs/adr/ADR-121-bfld-identity-risk-scoring.md)/[122](docs/adr/ADR-122-bfld-ruview-ha-matter-exposure.md)/[123](docs/adr/ADR-123-bfld-capture-path-nexmon-and-esp32.md)。研究档案：[`docs/research/BFLD/`](docs/research/BFLD/)（11 个文件，13,544 字）。 |
+| [**SENSE-BRIDGE — rvagent MCP 服务器**](tools/ruview-mcp/README.md) | 双传输 MCP 服务器（`@ruvnet/rvagent`），桥接 RuView 感知栈与 AI 代理（Claude Code、Cursor、ruflo 群集）。6 个已接线工具：`ruview.presence.now`、`ruview.vitals.get_{breathing,heart_rate,all}`、`ruview.bfld.last_scan`、`ruview.bfld.subscribe`。stdio + Streamable HTTP（`POST /mcp`，来源验证、Bearer 令牌认证、`127.0.0.1` 绑定）。完整 20 工具 Zod 模式桶 + 5 个 RUVIEW-POLICY 治理工具。93 个测试。[ADR-124](docs/adr/ADR-124-rvagent-mcp-ruvector-npm-integration.md)。试用：`npx @ruvnet/rvagent stdio`。 |
+| [语义原语 — 精确率/召回率](docs/integrations/semantic-primitives-metrics.md) | 在保留的配对捕获集上的每个原语 F1 分数：某人睡觉、可能的 distress、房间活跃、老年人不活动异常、会议、浴室、跌倒风险、离床、无运动、多房间。 |
+| [Claude Code / Codex 插件](plugins/ruview/README.md) | `ruview` 插件 + 市场——技能、`/ruview-*` 命令、代理和 Codex 提示镜像 |
+| [架构决策](docs/adr/README.md) | 96 个 ADR——每个技术选择的原因，按领域组织（硬件、信号处理、机器学习、平台、基础设施） |
+| [领域模型](docs/ddd/README.md) | 8 个 DDD 模型（RuvSense、信号处理、训练流水线、硬件平台、感知服务器、WiFi-Mat、CHCI、rvCSI）——限界上下文、聚合、领域事件和通用语言 |
+| [rvCSI — 边缘 RF 感知运行时](https://github.com/ruvnet/rvcsi) | Rust 优先 / TypeScript 可访问 / 硬件抽象的 CSI 运行时：多源摄入（包括来自 **Raspberry Pi 5** / Pi 4 / Pi 3B+ 的真实 nexmon_csi `.pcap`——CYW43455 / BCM43455c0）→ 验证 → DSP → 类型化事件 → RuVector RF 内存（[ADR-095](docs/adr/ADR-095-rvcsi-edge-rf-sensing-platform.md)、[ADR-096](docs/adr/ADR-096-rvcsi-ffi-crate-layout.md)、[领域模型](docs/ddd/rvcsi-domain-model.md)）。现为独立仓库——[`ruvnet/rvcsi`](https://github.com/ruvnet/rvcsi)——在此仓库的 `vendor/rvcsi` 下供应；crates.io 上 9 个 `rvcsi-*` crate，npm 上 `@ruv/rvcsi`，外加一个 Claude Code 插件。 |
+| [桌面应用](v2/crates/wifi-densepose-desktop/README.md) | **开发中**——基于 Tauri v2 的桌面应用，用于节点管理、OTA 更新、WASM 部署和网状网络可视化 |
+| `ruview-swarm` | 无人机群控制系统（ADR-148）——分层网状拓扑、Raft 共识、MARL、CSI 感知载荷、MAVLink/PX4/ArduPilot 兼容性、Ruflo AI 代理集成 |
+| [医疗示例](examples/medical/README.md) | 通过 60 GHz 毫米波雷达实现非接触式血压、心率、呼吸频率——15 美元硬件，无需可穿戴设备 |
+| [扩展文档](docs/readme-details.md) | 最新添加、关键特性、安装、快速开始、信号处理、训练、CLI、测试、部署和更新日志 |
+
+---
+
+## 🚧 Beta 软件
+
+> **Beta 软件** — 正在积极开发中。API 和固件可能发生变化。已知限制：
+> - 不支持 ESP32-C3 和原始 ESP32（单核，不足以处理 CSI DSP）
+> - 单个 ESP32 部署的空间分辨率有限——使用 2 个以上节点或添加 [Cognitum Seed](https://cognitum.one) 以获得最佳效果
+> - 无摄像头的姿态准确率有限（使用代理标签时 PCK@20 ≈ 2.5%）——[摄像头真值训练](docs/adr/ADR-079-camera-ground-truth-training.md)目标为 **35%+ PCK@20**；流水线已实现，但数据收集和评估阶段（ADR-079 P7–P9）仍在进行中。
 >
-> Contributions and bug reports welcome at [Issues](https://github.com/ruvnet/RuView/issues).
+> 欢迎在 [Issues](https://github.com/ruvnet/RuView/issues) 提交贡献和错误报告。
 
-## 📄 License
+## 📄 许可证
 
-MIT License — see [LICENSE](LICENSE) for details.
+MIT 许可证——详见 [LICENSE](LICENSE)。
 
-## 🤝 Creator Affiliate Program
+## 🤝 创作者联盟计划
 
-**For TikTok · Instagram · YouTube creators** — earn **25% on every Cognitum sale** you refer. The RuFlo, RuView, and RuVector videos you're already making have done millions of views; get paid for the orders they drive. Click-tracking activates instantly; commissions activate after a quick manual review (usually under 24 hours).
+**面向 TikTok · Instagram · YouTube 创作者**——每推荐一笔 **Cognitum 销售，赚取 25%** 佣金。您已经在制作的 RuFlo、RuView 和 RuVector 视频已获得数百万观看量；现在为您带来的订单获得报酬。点击追踪即时激活；佣金在快速人工审核后激活（通常在 24 小时内）。
 
-[Apply now → cognitum.one/affiliate](https://cognitum.one/affiliate)
+[立即申请 → cognitum.one/affiliate](https://cognitum.one/affiliate)
 
-## 📞 Support
+## 📞 支持
 
-[GitHub Issues](https://github.com/ruvnet/RuView/issues) | [Discussions](https://github.com/ruvnet/RuView/discussions) | [PyPI](https://pypi.org/project/wifi-densepose/)
+[GitHub Issues](https://github.com/ruvnet/RuView/issues) | [讨论区](https://github.com/ruvnet/RuView/discussions) | [PyPI](https://pypi.org/project/wifi-densepose/)
 
 ---
 
-**WiFi DensePose** — Privacy-preserving human pose estimation through WiFi signals.
+**WiFi DensePose** — 通过 WiFi 信号实现保护隐私的人体姿态估计。

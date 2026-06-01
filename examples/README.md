@@ -1,70 +1,70 @@
-# Examples
+# 示例
 
-Real-time sensing applications built on the RuView platform.
+基于 RuView 平台构建的实时感知应用。
 
-## Unified Dashboard (start here)
+## 统一仪表板（从这里开始）
 
 ```bash
 pip install pyserial numpy
 python examples/ruview_live.py --csi COM7 --mmwave COM4
 ```
 
-The live dashboard auto-detects available sensors and displays fused vitals, environment data, and events in real-time. Works with any combination of sensors.
+实时仪表板自动检测可用传感器，并实时显示融合的生命体征、环境数据和事件。适用于任意传感器组合。
 
-## Individual Examples
+## 单个示例
 
-| Example | Sensors | What It Does |
-|---------|---------|-------------|
-| [**ruview_live.py**](ruview_live.py) | CSI + mmWave + Light | Unified dashboard: HR, BR, BP, stress, presence, light, RSSI |
-| [Medical: Blood Pressure](medical/) | mmWave | Contactless BP estimation from HRV |
-| [Medical: Vitals Suite](medical/vitals_suite.py) | mmWave | 10-in-1: HR, BR, BP, HRV, sleep stages, apnea, cough, snoring, activity, meditation |
-| [Sleep: Apnea Screener](sleep/) | mmWave | Detects breathing cessation events, computes AHI |
-| [Stress: HRV Monitor](stress/) | mmWave | Real-time stress level from heart rate variability |
-| [Environment: Room Monitor](environment/) | CSI + mmWave | Occupancy, light, RF fingerprint, activity events |
+| 示例 | 传感器 | 功能 |
+|------|--------|------|
+| [**ruview_live.py**](ruview_live.py) | CSI + 毫米波 + 光 | 统一仪表板：心率、呼吸频率、血压、压力、存在检测、光照、RSSI |
+| [医疗：血压](medical/) | 毫米波 | 基于 HRV 的非接触式血压估计 |
+| [医疗：生命体征套件](medical/vitals_suite.py) | 毫米波 | 10 合 1：心率、呼吸频率、血压、HRV、睡眠阶段、呼吸暂停、咳嗽、打鼾、活动、冥想 |
+| [睡眠：呼吸暂停筛查](sleep/) | 毫米波 | 检测呼吸停止事件，计算 AHI |
+| [压力：HRV 监测](stress/) | 毫米波 | 基于心率变异性的实时压力水平 |
+| [环境：房间监测](environment/) | CSI + 毫米波 | 占用、光照、RF 指纹、活动事件 |
 
-## Hardware
+## 硬件
 
-| Port | Device | Cost | What It Provides |
-|------|--------|------|-----------------|
-| COM7 | ESP32-S3 (WiFi CSI) | ~$9 | Presence, motion, breathing, heart rate (through walls) |
-| COM4 | ESP32-C6 + Seeed MR60BHA2 | ~$15 | Precise HR/BR, presence, distance, ambient light |
+| 端口 | 设备 | 成本 | 功能 |
+|------|------|------|------|
+| COM7 | ESP32-S3（WiFi CSI） | 约 9 美元 | 存在检测、运动、呼吸、心率（穿墙） |
+| COM4 | ESP32-C6 + Seeed MR60BHA2 | 约 15 美元 | 精确心率/呼吸频率、存在检测、距离、环境光 |
 
-Either sensor works alone. Both together enable fusion (mmWave 80% + CSI 20%).
+任一传感器可单独工作。两者结合可实现融合（毫米波 80% + CSI 20%）。
 
-## Quick Start
+## 快速开始
 
 ```bash
 pip install pyserial numpy
 
-# Unified dashboard (recommended)
+# 统一仪表板（推荐）
 python examples/ruview_live.py --csi COM7 --mmwave COM4
 
-# Blood pressure estimation
+# 血压估计
 python examples/medical/bp_estimator.py --port COM4
 
-# Sleep apnea screening (run overnight)
+# 睡眠呼吸暂停筛查（夜间运行）
 python examples/sleep/apnea_screener.py --port COM4 --duration 28800
 
-# Stress monitoring (workday session)
+# 压力监测（工作日会话）
 python examples/stress/hrv_stress_monitor.py --port COM4 --duration 3600
 
-# Room environment monitor
+# 房间环境监测
 python examples/environment/room_monitor.py --csi-port COM7 --mmwave-port COM4
 
-# CSI only (no mmWave)
+# 仅 CSI（无毫米波）
 python examples/ruview_live.py --csi COM7 --mmwave none
 ```
 
 ## Web UI
 
-| Example | Stack | What It Does |
-|---------|-------|-------------|
-| [**frontend/**](frontend/) | Lit 3 + TypeScript + Vite | HOMECORE web UI — Home Assistant–style dashboard for the sensing stack (ADR-131). Mirrors the cognitum-v0 appliance design system. |
+| 示例 | 技术栈 | 功能 |
+|------|--------|------|
+| [**frontend/**](frontend/) | Lit 3 + TypeScript + Vite | HOMECORE Web UI——感知栈的 Home Assistant 风格仪表板（ADR-131）。镜像 cognitum-v0 设备设计系统。 |
 
 ```bash
 cd examples/frontend
 npm install
-npm run dev    # http://localhost:5173 — proxies /api → http://localhost:8123
+npm run dev    # http://localhost:5173 — 代理 /api → http://localhost:8123
 ```
 
-See [examples/frontend/README.md](frontend/README.md) for the full layout and design tokens.
+完整布局和设计令牌参见 [examples/frontend/README.md](frontend/README.md)。
